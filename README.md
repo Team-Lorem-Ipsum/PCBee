@@ -13,7 +13,7 @@ To help us learn proper SDLC methodologies, and apply it to a practical project.
 # Contributors
 1. Thomas Cheng
 2. Matthew Widjaja
-3. Greg Bennett
+3. Gregory Bennett
 4. Kevin Nguyen
 
 # Setup Instructions
