@@ -1,4 +1,7 @@
 # TODO
+## Concerns
+
+- [ ] Color scheme seems off pls help
 
 ## High Priority
 
@@ -15,3 +18,4 @@
 
 - [ ] Task 6
 - [ ] Task 7
+
