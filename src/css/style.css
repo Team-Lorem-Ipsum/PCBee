@@ -1,3 +1,21 @@
-nav {
-  background-color: orange;
+:root {
+  --custom-myBlack: #230007;
+  --custom-myOrange: #F7B32B;
+  --custom-myYellow: #FCE815;
+
+  --custom-myCreamWhite: #FFFEE0;
+}
+
+ nav {
+  background-color: var(--custom-myOrange);
+ }
+
+ .banner {
+  background-color: var(--custom-myYellow);
+ }
+.foot {
+  background-color: var(--custom-myBlack);
+}
+main{
+    background-color: var(--custom-myCreamWhite);
 }
