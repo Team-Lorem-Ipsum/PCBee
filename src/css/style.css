@@ -5,11 +5,15 @@
   --custom-myBlack: #230007;
   --custom-myOrange: #F7B32B;
   --custom-myYellow: #FCE815;
-
+  --custom-myNavbar: #E9D101;
   --custom-myCreamWhite: #FFFEE0;
 }
 
-nav, .item-listing {
+nav {
+  background-color: var(--custom-myNavbar);
+}
+
+.item-listing {
   background-color: var(--custom-myOrange);
 }
 
@@ -21,7 +25,7 @@ nav, .item-listing {
   background-color: var(--custom-myBlack);
 }
 
-.pc-builder {
+.pc-builder, .about-us, .desc {
   background-color: var(--custom-myCreamWhite);
 }
 
@@ -31,4 +35,20 @@ h1, h4 {
 
 .rounded-start {
   border-radius: 100px;
+}
+
+.navbar .collapse :hover {
+  background-color: #9b711c;
+  color: white;
+}
+
+.banner {
+  background-image: url("../assets/banner_logo.png");
+  background-position: bottom;
+  background-size: cover;
+}
+
+.foot a {
+  text-decoration: none;
+  color: white;
 }
