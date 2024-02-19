@@ -32,3 +32,14 @@ h1, h4 {
 .rounded-start {
   border-radius: 100px;
 }
+
+.navbar .collapse :hover {
+  background-color: #9b711c;
+  color: white;
+}
+
+.banner {
+  background-image: url("../assets/banner_logo.png");
+  background-position: bottom;
+  background-size: cover;
+}
