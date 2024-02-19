@@ -25,7 +25,7 @@ nav {
   background-color: var(--custom-myBlack);
 }
 
-.pc-builder {
+.pc-builder, .about-us {
   background-color: var(--custom-myCreamWhite);
 }
 
