@@ -113,8 +113,10 @@
       
       console.log('Authorization Code Auth Flow END');
 
-      response.redirect(ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes));
+      let code = ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes);
+      response.redirect(code);
 
+      console.log(code);
       // Exchange Code for Authorization token
       ebayAuthToken.exchangeCodeForAccessToken('PRODUCTION', code).then((data) => { // eslint-disable-line no-undef
         console.log(data);
@@ -123,6 +125,16 @@
         console.log(`Error to get Access token :${JSON.stringify(error)}`);
       });
       console.log('Exchange Code for Authorization token END');
+
+      // Getting access token from refresh token obtained from Authorization Code flow
+      const refreshToken = 'v^1.1#i^1#r^1#f^0#I^3#p^3#t^Ul4xMF8yOjNDMjU1MUI0OTJBMDg5NUZGMUY4RkEwNjk1MDRBQjQ2XzNfMSNFXjI2MA==';
+      ebayAuthToken.getAccessToken('PRODUCTION', refreshToken, scopes).then((data) => {
+        console.log(data);
+      }).catch((error) => {
+        console.log(`Error to get Access token from refresh token:${JSON.stringify(error)}`);
+      });
+      console.log('Getting access token from refresh token END');
+
 
     })
     
