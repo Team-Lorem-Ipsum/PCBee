@@ -8,6 +8,7 @@
     let countries = undefined  
     
     //ebay OAuth
+    console.log('ebay OAuth');
     const scopes = ['https://api.ebay.com/oauth/api_scope',
         'https://api.ebay.com/oauth/api_scope/sell.marketing.readonly',
         'https://api.ebay.com/oauth/api_scope/sell.marketing',
