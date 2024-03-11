@@ -72,7 +72,7 @@
       console.log(`Error to get Access token :${JSON.stringify(error)}`);
     });
 
-    // // Authorization Code Auth Flow
+    // Authorization Code Auth Flow
     let userConsentUrl = ebayAuthToken.generateUserAuthorizationUrl('PRODUCTION', scopes); // get user consent url.
     
     console.log('Authorization Code Auth Flow END');
@@ -82,7 +82,7 @@
     });
     
     app.get("/auth/ebay/callback", (req, res) => {
-      axios("https://api.sandbox.ebay.com/identity/v1/oauth2/token", {
+      axios("https://api.ebay.com/identity/v1/oauth2/token", {
         method: "post",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -97,7 +97,7 @@
           // parsed from redirect URI after returning from eBay,
           code: req.query.code,
           // this is set in your dev account, also called RuName
-          redirect_uri: "Dean_Schmid-DeanSchm-TestAp-kqmgc"
+          redirect_uri: "Matthew_Widjaja-MatthewW-PCBee--ozkizh"
         })
       })
         .then(response => console.log(response))
