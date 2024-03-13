@@ -102,6 +102,7 @@
       })
         .then(response => console.log(response))
         .catch(err => console.log(err));
+        response.redirect(`${config.ROOT}/index.html`);
     });
    
 
