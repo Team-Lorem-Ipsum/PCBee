@@ -1,7 +1,5 @@
 (() => {
     const config = require(`${__dirname}/config/config`)
-    const Utils = require(`${__dirname}/utils`)
-    const fs = require('fs')
     const express = require('express')
     const app = express()
     const logs = []
@@ -106,7 +104,6 @@
     });
    
 
-   
 
     // Start Node.js HTTP webserver
     app.listen(config.PORT, "localhost", () => {
