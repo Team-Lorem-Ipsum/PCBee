@@ -57,3 +57,14 @@ h1, h4 {
 p {
   font-family: Lato;
 }
+
+
+input[type="image"]{
+  width: auto;
+  height: auto;
+}
+
+input[type="image"]:hover {
+  border-radius: 10%;
+  border: 2px orange solid;
+}
