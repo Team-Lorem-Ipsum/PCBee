@@ -28,12 +28,19 @@
                         <a class="nav-link px-3 py-2" href="builder.html">PC Builder</a>
                         <a class="nav-link px-3 py-2" href="about.html">About Us</a>
                     </div>
+                    <div style="float: right; ">
+                        <input type="image" src="Hamburger.png" alt="this" onclick="toggleChatbot()" style="width: 60px">
+                    </div>
                 </div>
             </nav>
         </header>
   
              
         <main>
+            <div class="chatBot" id="chatBotID">
+                
+            </div>
+
             <div class="container-fluid d-flex justify-content-center">
                 <h1 class="bg-dark text-light rounded text-center w-50 my-5 py-2 fw-bold">Product Search</h1>
             </div>
@@ -103,7 +110,16 @@
                     </div>
 
                     <div class="container col col-xl-4 col-lg-12 col-sm-12">
-                        <img src="./assets/pcparts.png" alt="PC Parts">
+                        <div style="border: 5px black solid; overflow: auto; background-size: cover; width:430px">
+                            <input type="image" src="assets/cooler.png" alt="this" onclick="changeName('Cooler')" style="max-width: 100%;">
+                            <input type="image" src="assets/cpu.png" alt="this" onclick="changeName('CPU')" style="max-width: 100%;">
+                            <input type="image" src="assets/ram.png" alt="this" onclick="changeName('RAM')" style="max-width: 100%;">
+                            <input type="image" src="assets/gpu.png" alt="this" onclick="changeName('GPU')" style="max-width: 100%;">
+                            <input type="image" src="assets/Monitor.png" alt="this" onclick="changeName('Monitor')" style="max-width: 100%;">
+                            <input type="image" src="assets/motherboard.png" alt="this" onclick="changeName('Motherboard')" style="max-width: 100%;">
+                            <input type="image" src="assets/case.png" alt="this" onclick="changeName('Case')" style="max-width: 100%;">
+                            <input type="image" src="assets/hdmiCable.png" alt="this" onclick="changeName('HDMI cable')" style="max-width: 100%;">    
+                        </div>
                     </div>
                 </div>
             </div>
