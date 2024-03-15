@@ -32,6 +32,8 @@ function toggleChatbot() {
     }
 }
 
+toggleChatbot();
+
 
 select.addEventListener("change", setCategory);
 
