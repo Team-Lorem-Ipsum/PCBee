@@ -68,3 +68,142 @@ input[type="image"]:hover {
   border-radius: 10%;
   border: 2px orange solid;
 }
+
+.chatBot {
+  background-color: rgb(83, 83, 83);
+  position: absolute;
+
+  right: 750px;
+  bottom: 300px;
+
+  display: grid;
+  grid-template: 
+  "header" auto
+  "body" auto
+  "input" auto;
+
+  overflow: hidden;
+
+  border-radius: 25px 25px 0 0;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.chatBotHeader {
+  grid-area: header;
+  background-color: rgb(58, 58, 58);
+  
+  color: white;
+  text-align: center;
+}
+
+.chatBoxFrame {
+  grid-area: body;
+  background-color: rgb(25, 25, 25);
+
+  height: 300px;
+  width: 300px;
+
+  color: black;
+  overflow-y: auto;
+}
+
+.chatBoxFrame::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatBoxFrame::-webkit-scrollbar-thumb {
+  background: darkgray;
+}
+
+.chatBot .userChat h1 {
+  color: lightblue;
+}
+
+.chatBot li p {
+  max-width: calc(230px);
+  word-wrap: break-word;  
+
+  list-style-type: none;
+  background-color: white;
+  text-size-adjust: 50%;
+
+  display: inline-block;
+  min-width: auto;
+  min-height: auto;
+
+  border-radius: 0px 5px 5px 5px;
+
+  margin: 0px 15px 15px 15px;
+  padding: 5px;
+}
+
+
+.chatBot li h1 {
+  color: white;
+  font-size: 15px;
+  padding-left: 15px;
+  margin-bottom: 1px;
+}
+
+.chatBot ul {
+  margin: 0;
+  padding: 0;
+}
+
+.chatInput {
+  grid-area: input;
+  border-top: 0px solid black;
+  display: flex;
+}
+
+.chatInput textarea {
+  height: 100%;
+  flex: 0.75;
+
+  bottom: 0;
+
+  outline: none;
+  border: none;
+
+  background-color: rgb(58, 58, 58);
+  color: white;
+  padding: 15px;
+}
+
+.chatInput button {
+  cursor: pointer;
+  width: fit-content;
+  flex: 0.25;
+
+  border: 0;
+
+  background-color: lightgreen;
+  color: rgb(0, 141, 0);
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.chatInput textarea::placeholder {
+  color: white;
+  opacity: 0.5; /* Firefox */
+}
+
+.chatInput textarea::-ms-input-placeholder { /* Edge 12-18 */
+  color: white;
+}
+
+.sendButton {
+  animation: flashAnimation 0.5s linear;
+}
+
+@keyframes flashAnimation {
+  0% {
+      background-color: lightgreen;
+  }
+  50% {
+      background-color: rgb(94, 175, 94);
+  }
+  100% {
+      background-color: lightgreen;
+  }
+}
