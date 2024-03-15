@@ -25,10 +25,10 @@ function toggleChatbot() {
     var overlay = document.getElementById('chatBotID');
     if (overlay.style.display === 'none') {
         overlay.style.display = 'block';
-        content.style.visibility = 'hidden';
+        // content.style.visibility = 'hidden';
     } else {
         overlay.style.display = 'none';
-        content.style.visibility = 'visible';
+        // content.style.visibility = 'visible';
     }
 }
 
