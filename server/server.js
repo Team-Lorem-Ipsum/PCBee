@@ -103,7 +103,12 @@
         response.redirect(`${config.ROOT}/index.html`);
     });
    
-
+  //  // eBay search item
+  //  app.get("/search/:keyword", (req, res) => {
+  //     let url = "https://api.ebay.com/buy/browse/v1/item_summary/search?";
+  //     let q = `q=${req.params.keyword}`;
+      
+  //  });
 
     // Start Node.js HTTP webserver
     app.listen(config.PORT, "localhost", () => {
