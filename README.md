@@ -8,7 +8,7 @@ To help us learn proper SDLC methodologies, and apply it to a practical project.
 # Tech Stacks
 1. HTML
 2. Bootstrap (CSS)
-3. React (JS)
+3. Node.js (Backend)
 
 # Contributors
 1. Thomas Cheng
