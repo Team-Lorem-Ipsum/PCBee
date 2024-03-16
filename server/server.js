@@ -4,6 +4,7 @@
   const axios = require("axios");
   const app = express();
   const logs = [];
+
   let access_token;
   /**
    * Middleware declarations
@@ -60,6 +61,28 @@
   ); // get user consent url.
 
   console.log("Authorization Code Auth Flow END");
+
+
+  // eBay search item
+  app.get("/search/:keyword", async (req, res) => {
+    try {
+      let url = "https://api.ebay.com/buy/browse/v1/item_summary/search";
+      let q = `q=${req.params.keyword}`;
+      let limit = `limit=${5}`;
+
+      let response = await axios.get(`${url}?${q}&${limit}`, {
+        headers: {
+          Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
+          "Content-Type": "application/json",
+        },
+      });
+
+      res.send(response.data);
+    } catch (e) {
+      console.error("Error fetching data from eBay API:", error);
+      res.status(500).send("Error fetching data from eBay API");
+    }
+
 
   app.get("/login/ebay", (request, response) => {
     response.redirect(userConsentUrl);
