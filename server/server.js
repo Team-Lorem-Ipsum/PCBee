@@ -4,7 +4,7 @@
   const axios = require("axios");
   const app = express();
   const logs = [];
-
+  let access_token;
   /**
    * Middleware declarations
    */
@@ -72,7 +72,7 @@
       .then((data) => {
         // eslint-disable-line no-undef
         console.log(data);
-        let access_token = data.access_token;
+        access_token = data.access_token;
         console.log("Access Token:", access_token); // access_token is undefined???
         res.redirect("/");
       })
