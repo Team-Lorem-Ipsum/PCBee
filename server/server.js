@@ -67,8 +67,6 @@
 
   app.get("/auth/ebay/callback", async(req, res) => {
     let code = req.query.code;
-    // let access_token = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)
-    let access_token;
     let response = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)
     .then((data) => {
       console.log(data);
@@ -79,7 +77,7 @@
       console.log(error);
       console.log(`Error to get Access token :${JSON.stringify(error)}`);
     });
-    console.log("Access Token:", access_token); // access_token is undefined???
+    console.log("Access Token:", access_token); 
     res.redirect("/");
 
   });
