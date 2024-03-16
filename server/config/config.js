@@ -1,7 +1,7 @@
 (() => {
     const fs = require("fs")
     const config = {}
-    config.PORT = process.env.PORT || 8080
+    config.PORT = process.env.PORT || 10000 // 10000 to host on render.com
     config.ROOT = `${__dirname}/../../client`
     config.LOG_FILE = `${__dirname}/../logs/node.js.log`
     config.COUNTRIES = `${__dirname}/../../data/countries.json`

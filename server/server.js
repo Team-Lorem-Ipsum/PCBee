@@ -106,7 +106,7 @@
 
 
     // Start Node.js HTTP webserver
-    app.listen(config.PORT, "localhost", () => {
+    app.listen(config.PORT, "0.0.0.0", () => { // 0.0.0.0 to host on render.com
         console.log(`\t|Server listening on ${config.PORT}`)
     })
 })()
