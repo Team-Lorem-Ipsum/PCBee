@@ -82,6 +82,26 @@
       });
   });
 
+  // eBay popular item
+  app.get("/related/:keyword", async (req, res) => {
+    try {
+      let url = "https://api.ebay.com/commerce/catalog/v1_beta/product";
+      let epid = req.params.keyword;
+
+      let response = await axios.get(`${url}/${epid}`, {
+        headers: {
+          Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
+          "Content-Type": "application/json",
+        },
+      });
+
+      res.send(response.data);
+    } catch (e) {
+      console.error("Error fetching data from eBay API:", error);
+      res.status(500).send("Error fetching data from eBay API");
+    }
+  });
+
   // Start Node.js HTTP webserver
   app.listen(config.PORT, "0.0.0.0", () => {
     // 0.0.0.0 to host on render.com
