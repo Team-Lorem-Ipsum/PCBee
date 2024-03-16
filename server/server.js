@@ -67,9 +67,8 @@
 
   app.get("/auth/ebay/callback", async(req, res) => {
     let code = req.query.code;
-     const access_token = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)
+    let access_token = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)
     .then((data) => {
-      // eslint-disable-line no-undef
       console.log(data);
     })
     .catch((error) => {
