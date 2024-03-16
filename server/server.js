@@ -73,7 +73,7 @@
         // eslint-disable-line no-undef
         console.log(data);
         
-        access_token = JSON.stringify(data);
+        access_token = JSON.stringify(data.access_token);
         console.log("Access Token:", access_token); // access_token is undefined???
         res.redirect("/");
       })
