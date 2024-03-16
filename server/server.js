@@ -76,7 +76,8 @@
       console.log(error);
       console.log(`Error to get Access token :${JSON.stringify(error)}`);
     });
-    let access_token = response.access_token;
+    console.log(typeof(reponse));
+    // let access_token = response.access_token;
     console.log("Access Token:", access_token); // access_token is undefined???
     res.redirect("/");
 
