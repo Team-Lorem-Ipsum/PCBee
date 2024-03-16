@@ -65,15 +65,15 @@
     response.redirect(userConsentUrl);
   });
 
-  app.get("/auth/ebay/callback", async (req, res) => {
+  app.get("/auth/ebay/callback", (req, res) => {
     let code = req.query.code;
     ebayAuthToken
       .exchangeCodeForAccessToken("PRODUCTION", code)
       .then((data) => {
         // eslint-disable-line no-undef
         console.log(data);
-        let response = data.json();
-        access_token = response.access_token;
+        
+        access_token = JSON.stringify(data);
         console.log("Access Token:", access_token); // access_token is undefined???
         res.redirect("/");
       })
