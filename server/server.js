@@ -80,27 +80,17 @@
     });
     
     app.get("/auth/ebay/callback", (req, res) => {
-      axios("https://api.ebay.com/identity/v1/oauth2/token", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization:
-            "Basic " +
-            btoa(
-              `client public key:client secret keys`
-            )
-        },
-        data: qs.stringify({
-          grant_type: "authorization_code",
-          // parsed from redirect URI after returning from eBay,
-          code: req.query.code,
-          // this is set in your dev account, also called RuName
-          redirect_uri: "Matthew_Widjaja-MatthewW-PCBee--ozkizh"
-        })
-      })
-        .then(response => console.log(response))
-        .catch(err => console.log(err));
-        response.redirect(`${config.ROOT}/index.html`);
+      let code = req.query.code;
+      ebayAuthToken.exchangeCodeForAccessToken('PRODUCTION', code).then((data) => { // eslint-disable-line no-undef
+        console.log(data);
+        let access_token = data.access_token;
+        console.log('Access Token:', access_token);
+        res.redirect('/');
+      }).catch((error) => {
+        console.log(error);
+        console.log(`Error to get Access token :${JSON.stringify(error)}`);
+      });
+      
     });
    
 
