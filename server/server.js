@@ -72,10 +72,8 @@
     let response = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)
     .then((data) => {
       console.log(data);
-      console.log(typeof(data));
-      // let response = data.access_token;
-      // console
-
+      let jsonData = JSON.parse(data);
+      access_token = jsonData.access_token;
     })
     .catch((error) => {
       console.log(error);
