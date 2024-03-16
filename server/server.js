@@ -5,6 +5,7 @@
   const app = express();
   const logs = [];
 
+  let access_token;
   /**
    * Middleware declarations
    */
@@ -61,26 +62,6 @@
 
   console.log("Authorization Code Auth Flow END");
 
-  app.get("/login/ebay", (request, response) => {
-    response.redirect(userConsentUrl);
-  });
-
-  app.get("/auth/ebay/callback", (req, res) => {
-    let code = req.query.code;
-    ebayAuthToken
-      .exchangeCodeForAccessToken("PRODUCTION", code)
-      .then((data) => {
-        // eslint-disable-line no-undef
-        console.log(data);
-        let access_token = data.access_token;
-        console.log("Access Token:", access_token);
-        res.redirect("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(`Error to get Access token :${JSON.stringify(error)}`);
-      });
-  });
 
   // eBay search item
   app.get("/search/:keyword", async (req, res) => {
@@ -101,6 +82,27 @@
       console.error("Error fetching data from eBay API:", error);
       res.status(500).send("Error fetching data from eBay API");
     }
+
+
+  app.get("/login/ebay", (request, response) => {
+    response.redirect(userConsentUrl);
+  });
+
+  app.get("/auth/ebay/callback", async(req, res) => {
+    let code = req.query.code;
+    let response = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)
+    .then((data) => {
+      console.log(data);
+      let jsonData = JSON.parse(data);
+      access_token = jsonData.access_token;
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(`Error to get Access token :${JSON.stringify(error)}`);
+    });
+    console.log("Access Token:", access_token); 
+    res.redirect("/");
+
   });
 
   // Start Node.js HTTP webserver
