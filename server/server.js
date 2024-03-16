@@ -71,13 +71,14 @@
     .then((data) => {
       // eslint-disable-line no-undef
       console.log(data);
-      console.log("Access Token:", access_token); // access_token is undefined???
-      res.redirect("/");
     })
     .catch((error) => {
       console.log(error);
       console.log(`Error to get Access token :${JSON.stringify(error)}`);
     });
+    console.log("Access Token:", access_token); // access_token is undefined???
+    res.redirect("/");
+
   });
 
   // Start Node.js HTTP webserver
