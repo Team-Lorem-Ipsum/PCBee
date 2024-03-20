@@ -38,7 +38,7 @@
                 <h1 class="bg-dark text-light rounded text-center w-50 my-5 py-2 fw-bold">Product Search</h1>
             </div>
 
-            <div class="container-fluid p-3 pc-builder ps-0 d-flex justify-content-between">
+            <div class="container-fluid p-3 pc-builder ps-0 d-flex justify-content-center">
                 <div class="container row">
                     <div class="container col col-xl-8 col-lg-12 col-sm-12 ps-0">
                         <div class="container d-flex align-items-center justify-content-between">
@@ -103,8 +103,44 @@
                     </div>
 
                     <div class="container col col-xl-4 col-lg-12 col-sm-12">
-                        <img src="./assets/pcparts.png" alt="PC Parts">
+                        <div style="border: 5px black solid; overflow: auto; background-size: cover; width:430px">
+                            <input type="image" src="assets/cooler.png" alt="this" onclick="changeName('Cooler')" style="max-width: 100%;">
+                            <input type="image" src="assets/cpu.png" alt="this" onclick="changeName('CPU')" style="max-width: 100%;">
+                            <input type="image" src="assets/ram.png" alt="this" onclick="changeName('RAM')" style="max-width: 100%;">
+                            <input type="image" src="assets/gpu.png" alt="this" onclick="changeName('GPU')" style="max-width: 100%;">
+                            <input type="image" src="assets/Monitor.png" alt="this" onclick="changeName('Monitor')" style="max-width: 100%;">
+                            <input type="image" src="assets/motherboard.png" alt="this" onclick="changeName('Motherboard')" style="max-width: 100%;">
+                            <input type="image" src="assets/case.png" alt="this" onclick="changeName('Case')" style="max-width: 100%;">
+                            <input type="image" src="assets/hdmiCable.png" alt="this" onclick="changeName('HDMI cable')" style="max-width: 100%;">    
+                        </div>
                     </div>
+
+                    <div class="container col p-5">
+                        <div class="chatBot" id="chatBotID">
+                            <div class="chatBotHeader">
+                                <h1>
+                                    AI Assistance
+                                </h1>
+                            </div>
+                            <div class="chatBoxFrame">
+                                <ul class="chatBox">
+                                    <li class="botChat">
+                                        <h1>
+                                            ChatBot
+                                        </h1>
+                                        <p>
+                                            Do you need any help with anything?
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="chatInput">
+                                <textarea placeholder="Type here" id = "input"></textarea>
+                                <button type="button" id="sendButton">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
                 <div> <a href="/login/ebay" target=”_blank” id="OAuth"> AUTHPAGE</a></div>
