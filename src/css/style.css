@@ -154,7 +154,7 @@ input[type="image"]:hover {
 
 .chatInput textarea {
   height: 100%;
-  flex: 0.75;
+  flex: auto;
 
   bottom: 0;
 
@@ -169,7 +169,7 @@ input[type="image"]:hover {
 .chatInput button {
   cursor: pointer;
   width: fit-content;
-  flex: 0.25;
+  flex: 0.1;
 
   border: 0;
 
