@@ -71,10 +71,6 @@ input[type="image"]:hover {
 
 .chatBot {
   background-color: rgb(83, 83, 83);
-  position: absolute;
-
-  right: 750px;
-  bottom: 300px;
 
   display: grid;
   grid-template: 
@@ -101,7 +97,7 @@ input[type="image"]:hover {
   background-color: rgb(25, 25, 25);
 
   height: 300px;
-  width: 300px;
+  width: 100%;
 
   color: black;
   overflow-y: auto;
