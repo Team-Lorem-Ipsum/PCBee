@@ -70,13 +70,13 @@
 
       let response = await axios.get(`${url}?${q}&${limit}`, {
         headers: {
-          Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
+          Authorization: `Bearer ${access_token}`, 
           "Content-Type": "application/json",
         },
       });
 
       res.send(response.data);
-    } catch (e) {
+    } catch (error) {
       console.error("Error fetching data from eBay API:", error);
       res.status(500).send("Error fetching data from eBay API");
     }
