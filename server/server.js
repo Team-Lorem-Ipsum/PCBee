@@ -83,12 +83,13 @@
   });
 
   // eBay popular item
-  app.get("/related/:keyword", async (req, res) => {
+  app.get("/popular/:id", async (req, res) => {
     try {
-      let url = "https://api.ebay.com/commerce/catalog/v1_beta/product";
-      let epid = req.params.keyword;
+      let url = "https://api.ebay.com/buy/marketing/v1_beta/merchandised_product";
+      let id = req.params.id;
+      let metricName = "BEST_SELLING";
 
-      let response = await axios.get(`${url}/${epid}`, {
+      let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
         headers: {
           Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
           "Content-Type": "application/json",
@@ -96,7 +97,7 @@
       });
 
       res.send(response.data);
-    } catch (e) {
+    } catch (error) {
       console.error("Error fetching data from eBay API:", error);
       res.status(500).send("Error fetching data from eBay API");
     }
