@@ -76,7 +76,7 @@
       });
 
       res.send(response.data);
-    } catch (e) {
+    } catch (error) {
       console.error("Error fetching data from eBay API:", error);
       res.status(500).send("Error fetching data from eBay API");
     }
