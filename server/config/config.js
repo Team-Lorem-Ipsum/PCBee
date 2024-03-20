@@ -4,8 +4,7 @@
     config.PORT = process.env.PORT || 10000 // 10000 to host on render.com
     config.ROOT = `${__dirname}/../../client`
     config.LOG_FILE = `${__dirname}/../logs/node.js.log`
-    config.COUNTRIES = `${__dirname}/../../data/countries.json`
-    config.API_URL = 'http://universities.hipolabs.com/search?country='
+
     config.logFile = (request, logs) => {
         log = {}
         log.date = new Date()
