@@ -1,7 +1,13 @@
+const req = require("express/lib/request");
+import OpenAI from "openai";
+
 (() => {
   const config = require(`${__dirname}/config/config`);
   const express = require("express");
   const axios = require("axios");
+  
+  require("dotenv").config();
+
   const app = express();
   const logs = [];
 
@@ -101,6 +107,34 @@
       console.log("Access Token:", access_token);
       res.redirect("/");
 
+    });    
+
+    // AI
+    const chatBotAI = new OpenAI({
+      apiKey: process.env.OPEN_AI_KEY
+    });
+
+    app.post("/response/gpt", async (request, response) => {
+      try {
+        const response = await chatBotAI.chat.completions.create({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: 'system', 
+              content: 'You are a helpful assistant',
+            },
+            {
+              role: 'user', 
+              content: request.body,
+            }
+          ]
+        })
+
+        response.send(completion.choices[0])
+
+      } catch (error) {
+        console.log(`Error Msg: ${error}`)
+      }
     });
 
     // Start Node.js HTTP webserver

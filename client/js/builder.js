@@ -1,15 +1,4 @@
 //chat gt openai api implementation
-import OpenAi from "openai";
-
-require("dotenv").config();
-
-const openAIClient= new OpenAi({apikey: process.env['OPENAI_API_KEY']})
-
-const chatcompletion = await openAIClient.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    message : []
-    
-})
 
 // DECLARATIONS
 let select = document.querySelector("#category-select");
@@ -49,11 +38,11 @@ let chatBoxFrame = document.querySelector('.chatBoxFrame')
 const createBubble = (args) => {
     let text = args.Message
     let className = args.Class
-    
+
     let chatBubble = document.createElement('li')
     chatBubble.classList.add(className);
     chatBubble.innerHTML = `<h1 class=${className}>${className == 'userChat' ? 'You' : 'ChatBot'}</h1> <p>${text}</p>`
-    
+
     chatBox.appendChild(chatBubble);
     chatBoxFrame.scrollTo(0, chatBoxFrame.scrollHeight)
 }
@@ -63,11 +52,18 @@ const createBubble = (args) => {
  * @param {*} args 
  * @returns 
  */
-const sendChat = (args) => {
+async function sendChat(args) {
     if (!args.Message)
         return
 
     createBubble(args)
+
+    // chat gpt respond here
+
+    const response = await fetch('/response/gpt', {
+        method: 'POST',
+        
+    })
 }
 
 /**
@@ -81,9 +77,9 @@ let buttonFlicker = (button) => {
 /**
  * this is initializes everything above
  */
-button.addEventListener('click', function() {
+button.addEventListener('click', function () {
     var button = this;
-    
+
     sendChat({
         Class: 'userChat',
         Message: chatInput.value
