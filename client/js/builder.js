@@ -53,17 +53,39 @@ const createBubble = (args) => {
  * @returns 
  */
 async function sendChat(args) {
+    console.log(args.Message)
     if (!args.Message)
         return
 
     createBubble(args)
+    chatInput.value = ''
 
     // chat gpt respond here
+    try {
+        const response = await fetch('/response/gpt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: args.Message  
+            })
+        });
 
-    const response = await fetch('/response/gpt', {
-        method: 'POST',
+        if (!response.ok)
+            throw new Error('failed to catch')
+
+        const AI_response = await response.text();
+        console.log(AI_response);      
         
-    })
+        createBubble({
+            Class: 'botChat',
+            Message: AI_response
+        })
+
+    } catch (error) {
+        
+    }
 }
 
 /**

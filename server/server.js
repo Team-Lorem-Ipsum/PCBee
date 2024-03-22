@@ -1,11 +1,10 @@
 const req = require("express/lib/request");
-import OpenAI from "openai";
 
 (() => {
   const config = require(`${__dirname}/config/config`);
   const express = require("express");
   const axios = require("axios");
-  
+
   require("dotenv").config();
 
   const app = express();
@@ -16,6 +15,7 @@ import OpenAI from "openai";
    * Middleware declarations
    */
   app.use(express.json());
+
   app.use((request, response, next) => {
     config.logFile(request, logs);
     next();
@@ -110,31 +110,31 @@ import OpenAI from "openai";
     });    
 
     // AI
-    const chatBotAI = new OpenAI({
-      apiKey: process.env.OPEN_AI_KEY
-    });
 
-    app.post("/response/gpt", async (request, response) => {
+    app.post("/response/gpt", async (req, res) => {
+      const message = req.body.prompt;
+      const apiUrl = "https://api.openai.com/v1/chat/completions";
+      const apiKey = "PUT API KEY HERE";
+
       try {
-        const response = await chatBotAI.chat.completions.create({
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: 'system', 
-              content: 'You are a helpful assistant',
-            },
-            {
-              role: 'user', 
-              content: request.body,
+        const response = await axios.post(apiUrl, {
+            model: "gpt-3.5-turbo",
+            messages: [{"role": "user", "content": message}],
+            temperature: 0.7
+        }, {
+            headers: {
+                'Authorization':  `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
             }
-          ]
-        })
+        });
 
-        response.send(completion.choices[0])
-
-      } catch (error) {
-        console.log(`Error Msg: ${error}`)
-      }
+        const completion = response.data.choices[0].message.content;
+        console.log(completion);
+        res.send(completion);
+    } catch (error) {
+        console.error('Error calling GPT API:', error);
+        res.status(500).send('Error calling GPT API');
+    }
     });
 
     // Start Node.js HTTP webserver
