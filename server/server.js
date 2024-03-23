@@ -75,11 +75,39 @@
         },
       });
 
+
       res.send(response.data);
     } catch (e) {
       console.error("Error fetching data from eBay API:", error);
       res.status(500).send("Error fetching data from eBay API");
     }
+
+  // eBay popular item
+  app.get("/popular/:id", async (req, res) => {
+    try {
+      let url = "https://api.ebay.com/buy/marketing/v1_beta/merchandised_product";
+      let id = req.params.id;
+      let metricName = "BEST_SELLING";
+
+      let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
+          "Content-Type": "application/json",
+        },
+      });
+
+      res.send(response.data);
+    } catch (error) {
+      console.error("Error fetching data from eBay API:", error);
+      res.status(500).send("Error fetching data from eBay API");
+    }
+  });
+
+  // Start Node.js HTTP webserver
+  app.listen(config.PORT, "0.0.0.0", () => {
+    // 0.0.0.0 to host on render.com
+    console.log(`\t|Server listening on ${config.PORT}`);
+
   });
 
     app.get("/login/ebay", (request, response) => {
