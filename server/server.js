@@ -111,15 +111,25 @@ const req = require("express/lib/request");
 
     // AI
 
-    app.post("/response/gpt", async (req, res) => {
-      const message = req.body.prompt;
-      const apiUrl = "https://api.openai.com/v1/chat/completions";
-      const apiKey = "PUT API KEY HERE";
+const chatHistory = [];
 
-      try {
+app.post("/response/gpt", async (req, res) => {
+    const message = req.body.prompt;
+    const apiUrl = "https://api.openai.com/v1/chat/completions";
+    const apiKey = "API KEY HERE";
+
+    // Add user message to chat history
+    chatHistory.push({
+        "role": "user",
+        "content": message
+    });
+
+    console.log(chatHistory);
+
+    try {
         const response = await axios.post(apiUrl, {
             model: "gpt-3.5-turbo",
-            messages: [{"role": "user", "content": message}],
+            messages: chatHistory,
             temperature: 0.7
         }, {
             headers: {
@@ -130,13 +140,19 @@ const req = require("express/lib/request");
 
         const completion = response.data.choices[0].message.content;
         console.log(completion);
+
+        // Add AI response to chat history
+        chatHistory.push({
+            "role": "assistant",
+            "content": completion
+        });
+
         res.send(completion);
     } catch (error) {
         console.error('Error calling GPT API:', error);
         res.status(500).send('Error calling GPT API');
     }
-    });
-
+});
     // Start Node.js HTTP webserver
     app.listen(config.PORT, "0.0.0.0", () => {
       // 0.0.0.0 to host on render.com
