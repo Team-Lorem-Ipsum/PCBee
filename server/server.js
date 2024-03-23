@@ -4,7 +4,20 @@
   const axios = require("axios");
   const app = express();
   const logs = [];
+  //category ids for ebay
+  const category_ids={
+    "gpu": 27386,
+    "cpu": 164,
+    "memory": 170083,
+    "motherboard": 1244,
+    "caseFan": 131486,
+    "case": 42014,
+    "monitor": 80053
+  };
 
+  //current category
+  let currentCat = "gpu";
+  // ebay access token
   let access_token;
   /**
    * Middleware declarations
@@ -102,6 +115,29 @@
       res.redirect("/");
 
     });
+
+    // eBay popular item
+  app.get("/popular/:id", async (req, res) => {
+    try {
+      let url = "https://api.ebay.com/buy/marketing/v1_beta/merchandised_product";
+      let id = category_ids[req.params.id];
+      let metricName = "BEST_SELLING";
+
+      let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      res.send(response.data);
+    } catch (error) {
+      console.error("Error fetching data from eBay API:", error);
+      res.status(500).send("Error fetching data from eBay API");
+    }
+  });
+
+
 
     // Start Node.js HTTP webserver
     app.listen(config.PORT, "0.0.0.0", () => {
