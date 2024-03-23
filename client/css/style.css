@@ -30,7 +30,7 @@ nav {
   background-color: var(--custom-myCreamWhite);
 }
 
-h1, h4 {
+h1, h4, h5 {
   font-family: 'Istok Web';
 }
 
@@ -202,4 +202,13 @@ input[type="image"]:hover {
   100% {
       background-color: lightgreen;
   }
+}
+
+.product-listing {
+  max-height: 500px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.product-listing img {
+  width: 10em;
 }

@@ -1,21 +1,125 @@
 // DECLARATIONS
 let select = document.querySelector("#category-select");
+let jsonData = new Map();
+let selectedItems = document.querySelector(".selected-items")
+let productListing = document.querySelector(".product-listing");
+let isFirstTime = true;
+let categories = ["case", "gpu", "cpu", "caseFan", "memory", "monitor", "motherboard"]
+const maxListing = 50;
 
-// setCategory
-const setCategory = () => {
-    console.log("hit");
-    let heading = document.querySelector("#category-title");
-    let value = select.value;
-    heading.innerHTML = value;
+/**
+ * fetches a json
+ */
+const fetchJSON = async (name) => {
+    try{
+        let response = await fetch(`data/${name}.json`);
+        let data = await response.json();
+        return data;
+    } catch (error) {
+        console.log("Error: " + error);
+    }
 }
 
 /**
- * function to change h4 category title
- * @param {*} newName 
+ * create product listing bubble
  */
-function changeName(newName) {
-    document.getElementById('category-title').textContent = newName;
+const createListing = (category, name, price, listing) => {
+    let wrapper = document.createElement("div");
+    wrapper.classList.add("rounded-start", "item-listing", "d-flex", "p-3");
+
+    let divImg = document.createElement("div");
+    divImg.classList.add("col", "col-sm-4");
+
+    let divDesc = document.createElement("div");
+    divDesc.classList.add("col", "col-sm-8", "d-flex", "flex-column");
+
+    let img = document.createElement("img");
+    img.src = `./assets/${category}.png`;
+    img.alt = category;
+
+    let itemName = document.createElement("h5");
+    itemName.textContent = name;
+
+    let desc = document.createElement("p");
+    desc.textContent = `Price: $${price}`;
+
+    let addBtn = document.createElement("button");
+    addBtn.innerHTML = listing?"Add to List":"Search Item";
+    addBtn.style = "background-color: var(--custom-myNavbar);";
+    addBtn.classList.add("btn", "w-50");
+    if (listing)
+        addBtn.addEventListener("click", () => addToList(category, name, price));
+    else
+        addBtn.addEventListener("click", () => console.log("eBay time")); // TODO
+
+    divImg.appendChild(img);
+    divDesc.appendChild(itemName);
+    divDesc.appendChild(desc);
+    divDesc.appendChild(addBtn);
+    wrapper.appendChild(divImg);
+    wrapper.appendChild(divDesc);
+
+    if (listing)
+        productListing.appendChild(wrapper);  
+    else
+        selectedItems.appendChild(wrapper);
 }
+
+/**
+ * changes the category listings
+ */
+const setCategory = () => {
+    let heading = document.querySelector("#category-title");
+    let value = select.value;
+    let options = select.childNodes;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value == value)
+            heading.innerHTML = options[i].innerHTML;
+    }
+  
+    setListing(value);
+}
+
+const setCategoryThruImg = (value) => {
+    let heading = document.querySelector("#category-title");
+    let options = select.childNodes;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value == value)
+            heading.innerHTML = options[i].innerHTML;
+    }
+  
+    setListing(value);
+}
+
+/**
+ * set the listing appropriate to the category
+ */
+const setListing = (category) => {
+    let data = jsonData.get(category);
+    console.log(data);
+    productListing.innerHTML = "";
+    for (let i = 0; i < maxListing; i++) {
+        let name = data[i].name;
+        let price = data[i].price;
+        createListing(category, name, price, true);
+    }
+}
+
+/**
+ * fills the selected item section
+ */
+const addToList = (category, name, price) => {
+    if (isFirstTime) {
+        isFirstTime = false;
+        selectedItems.innerHTML = "";
+        let searchBtn = document.createElement("button");
+        searchBtn.style = "background-color: var(--custom-myNavbar);";
+        searchBtn.classList.add("btn", "w-50", "mt-2");
+        searchBtn.innerHTML = "Search All";
+        document.querySelector(".pc-builder > div").appendChild(searchBtn);
+    }
+    createListing(category, name, price, false);
+};
 
 select.addEventListener("change", setCategory);
 
@@ -77,4 +181,22 @@ button.addEventListener('click', function() {
     });
 
     buttonFlicker(button)
+});
+
+/**
+ * invokes all functions that need to be invoked immediately
+ */
+window.addEventListener("load", async () => {
+    try {
+        const promises = categories.map(async (element) => {
+            return await fetchJSON(element);
+        });
+        const jsonDataValues = await Promise.all(promises);
+        categories.forEach((category, index) => {
+            jsonData.set(category, jsonDataValues[index]);
+        });
+        setCategory();
+    } catch (error) {
+        console.error("Error fetching JSON data:", error);
+    }
 });
