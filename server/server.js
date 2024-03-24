@@ -111,20 +111,21 @@ const req = require("express/lib/request");
 
     // AI
 
-const chatHistory = [];
+const chatHistory = [{
+  "role": "system",
+  "content": "You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts"
+}];
 
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
     const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = "API KEY HERE";
+    const apiKey = "SET API KEY HERE";
 
     // Add user message to chat history
     chatHistory.push({
         "role": "user",
         "content": message
     });
-
-    console.log(chatHistory);
 
     try {
         const response = await axios.post(apiUrl, {
@@ -139,7 +140,6 @@ app.post("/response/gpt", async (req, res) => {
         });
 
         const completion = response.data.choices[0].message.content;
-        console.log(completion);
 
         // Add AI response to chat history
         chatHistory.push({
