@@ -113,13 +113,13 @@ const req = require("express/lib/request");
 
 const chatHistory = [{
   "role": "system",
-  "content": "You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts"
+  "content": "You are an assistant that helps explain PC parts, try to keep your prompts concise and simplified unless the user requests otherwise, try to limit the topics to pc computers and its related topics. Give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. When asked for where to buy pc parts make sure to mention the site they are currently on can list available items from eBay. If they ask for a specific part but it doesn't exist, provide them with a part that is spelt similarily and ask if they meant this."
 }];
 
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
     const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = "SET API KEY HERE";
+    const apiKey = "ENTER API KEY HERE";
 
     // Add user message to chat history
     chatHistory.push({
