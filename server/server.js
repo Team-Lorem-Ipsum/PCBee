@@ -120,7 +120,8 @@
   app.get("/popular/:id", async (req, res) => {
     try {
       let url = "https://api.ebay.com/buy/marketing/v1_beta/merchandised_product";
-      let id = category_ids[req.params.id];
+      // get category id from category_ids using category name
+      let id = category_ids[req.params.id]; 
       let metricName = "BEST_SELLING";
 
       let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
@@ -129,7 +130,7 @@
           "Content-Type": "application/json",
         },
       });
-
+      //send the response 
       res.send(response.data);
     } catch (error) {
       console.error("Error fetching data from eBay API:", error);
