@@ -116,7 +116,8 @@ input[type="image"]:hover {
 }
 
 .chatBot li p {
-  max-width: calc(230px);
+  /* max-width: calc(430px); */
+  max-width: calc(100%-80px);
   word-wrap: break-word;  
 
   list-style-type: none;

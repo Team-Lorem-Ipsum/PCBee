@@ -127,7 +127,6 @@ app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
     const apiUrl = "https://api.openai.com/v1/chat/completions";
     const apiKey = "put api key here";
-
     // Add user message to chat history
     chatHistory.push({
         "role": "user",
@@ -138,7 +137,8 @@ app.post("/response/gpt", async (req, res) => {
         const response = await axios.post(apiUrl, {
             model: "gpt-3.5-turbo",
             messages: chatHistory,
-            temperature: 0.7
+            temperature: 0.7,
+            n: 2
         }, {
             headers: {
                 'Authorization':  `Bearer ${apiKey}`,
