@@ -113,13 +113,14 @@ const req = require("express/lib/request");
 
 const chatHistory = [{
   "role": "system",
-  "content": "You are an assistant that helps explain PC parts, try to keep your prompts concise and simplified unless the user requests otherwise, try to limit the topics to pc computers and its related topics. Give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. When asked for where to buy pc parts make sure to mention the site they are currently on can list available items from eBay. If they ask for a specific part but it doesn't exist, provide them with a part that is spelt similarily and ask if they meant this."
+  // "content": "You are an assistant that helps explain PC parts, try to keep your prompts concise and simplified unless the user requests otherwise, try to limit the topics to pc computers and its related topics. Give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. When asked for where to buy pc parts make sure to mention the site they are currently on can list available items from eBay. If they ask for a specific part but it doesn't exist, provide them with a part that is spelt similarily and ask if they meant this. Your first completion choice(response.data.choices[0]) will always be the reponse that will be given to the user. the second completion choice(response.data.choices[1]) should always be a list of the recommendations in a JSON file format, if you didn't make any recommendations, leave the JSON file blank."
+  "content": "You are an assistant that helps explain PC parts, try to keep your prompts concise and simplified unless the user requests otherwise, try to limit the topics to pc computers and its related topics. Give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. When asked for where to buy pc parts make sure to mention the site they are currently on can list available items from eBay. If they ask for a specific part but it doesn't exist, provide them with a part that is spelt similarily and ask if they meant this. Your first completion choice(response.data.choices[0]) will always be the reponse that will be given to the user. the second completion choice(response.data.choices[1]) is for background use and will contain no user friendly chat, response.data.choices[1] should always be a list of the recommendations in a JSON file format, if you didn't make any recommendations, leave the JSON file blank."
 }];
 
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
     const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = "ENTER API KEY HERE";
+    const apiKey = "PUT API KEY HERE";
 
     // Add user message to chat history
     chatHistory.push({
@@ -131,7 +132,8 @@ app.post("/response/gpt", async (req, res) => {
         const response = await axios.post(apiUrl, {
             model: "gpt-3.5-turbo",
             messages: chatHistory,
-            temperature: 0.7
+            temperature: 0.7,
+            n: 2
         }, {
             headers: {
                 'Authorization':  `Bearer ${apiKey}`,
@@ -140,6 +142,10 @@ app.post("/response/gpt", async (req, res) => {
         });
 
         const completion = response.data.choices[0].message.content;
+        console.log("test: ",response.data.choices[1].message.content);
+        console.log("array: ", response.data.choices.toString());
+
+        
 
         // Add AI response to chat history
         chatHistory.push({
