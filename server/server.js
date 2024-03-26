@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 const req = require("express/lib/request");
 
 (() => {
@@ -113,13 +114,19 @@ const req = require("express/lib/request");
 
 const chatHistory = [{
   "role": "system",
-  "content": "You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts"
+  "content": `You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. If the user asks for a reccommendation, give a message as you usually would but include a array at the bottom of the chatbots message in json format of the items recommended and in proper json indentation: {"GPU": {"name": "AMD Radeon RX 570", "price": 180}, "GPU": {"name": "Nvidia GTX 1650", "price": 200}}`
 }];
+
+// const regex = /[{\n][\s]+(".*": {.*})[,\n]}?/g;
+const regex = /{?[\s]+("\w+": .*\s*)+}?,?\n?}?/g
+function extractJSON(msg) {
+  return msg.match(regex);
+} 
 
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
     const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = "SET API KEY HERE";
+    const apiKey = "put api key here";
 
     // Add user message to chat history
     chatHistory.push({
@@ -140,6 +147,7 @@ app.post("/response/gpt", async (req, res) => {
         });
 
         const completion = response.data.choices[0].message.content;
+        console.log(extractJSON(completion))
 
         // Add AI response to chat history
         chatHistory.push({
