@@ -25,11 +25,11 @@
   console.log(catId, "itemid: ",itemId);
 
   const displayPopItem = async() => {
-    let data = getJSONData(`/popular/${category_ids[catId]}`);
+    let data = await getJSONData(`/popular/${category_ids[catId]}`);
     console.log(data);
   };
   window.addEventListener("load",() => {
     displayPopItem();
-    
+
   });
 })();
