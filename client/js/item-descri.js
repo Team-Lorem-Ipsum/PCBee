@@ -1,5 +1,5 @@
 
-(() =>{
+
   //url = item-desc.html?category=:category&itemId=:itemId
   //get the data from the server
   const getJSONData = async (url) => {
@@ -32,4 +32,3 @@
     displayPopItem();
 
   });
-})();
