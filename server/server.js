@@ -138,6 +138,20 @@
     }
   });
 
+  // 
+  // 
+  /**
+   * eBay item description redirect end point
+   * redirect to  PATH/search/:category/:ItemId in builder.js
+   * 
+   * redirect new tab to item description page with category and item id
+   */
+   app.get("/search/category=:category&itemId =:itemId", async (req, res) => {
+      let category = req.params.category;
+      let itemId = req.params.itemId;
+      let redirectURL = `${config.ROOT}/item-desc.html?category=${category}&itemId=${itemId}`;
+      res.send(`<script>window.open("${redirectURL}", "_blank");</script>`);
+   });
 
 
     // Start Node.js HTTP webserver
