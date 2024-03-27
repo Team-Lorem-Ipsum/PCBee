@@ -23,6 +23,13 @@
   let catId = url.get("category");
   let itemId = url.get("itemId");
   console.log(catId, "itemid: ",itemId);
-  let data = getJSONData(`/popular/${category_ids[catId]}`);
-  console.log(data);
+
+  const displayPopItem = async() => {
+    let data = getJSONData(`/popular/${category_ids[catId]}`);
+    console.log(data);
+  };
+  window.addEventListener("load",() => {
+    displayPopItem();
+    
+  });
 })();
