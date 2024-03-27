@@ -9,6 +9,8 @@ const maxListing = 50;
 
 /**
  * fetches a json
+ * @param name of JSON file
+ * @return data from JSON
  */
 const fetchJSON = async (name) => {
     try{
@@ -20,22 +22,34 @@ const fetchJSON = async (name) => {
     }
 }
 
+/** ==================================
+ *  PC BUILDER SECTION
+ *  ==================================
+ */ 
+
 /**
  * create product listing bubble
+ * @param category of the item
+ * @param name of the item
+ * @param price of the item
+ * @listing whether or not its part of the item listing (true) or cart (false)
  */
 const createListing = (category, name, price, listing) => {
+    // create wrapper div
     let wrapper = document.createElement("div");
     wrapper.classList.add("rounded-start", "item-listing", "d-flex", "p-3");
 
+    // create the img div and product img
     let divImg = document.createElement("div");
     divImg.classList.add("col", "col-sm-4");
-
-    let divDesc = document.createElement("div");
-    divDesc.classList.add("col", "col-sm-8", "d-flex", "flex-column");
 
     let img = document.createElement("img");
     img.src = `./assets/${category}.png`;
     img.alt = category;
+
+    // create description div, filled with item name and price
+    let divDesc = document.createElement("div");
+    divDesc.classList.add("col", "col-sm-8", "d-flex", "flex-column");
 
     let itemName = document.createElement("h5");
     itemName.textContent = name;
@@ -44,16 +58,18 @@ const createListing = (category, name, price, listing) => {
     price = price? `$${price}`: "Not available";
     desc.innerHTML = `Price: ${price}`;
 
+    // create the add button if its for listing
+    // create the search and remove item for cart
     let addBtn = document.createElement("button");
     addBtn.innerHTML = listing?"Add to List":"Search Item";
     addBtn.classList.add("btn", "w-50");
     if (listing) // if bubble is for product listing, NOT cart
-        addBtn.addEventListener("click", () => addToList(category, name, price));
+        addBtn.addEventListener("click", () => addToCart(category, name, price));
     else
         addBtn.addEventListener("click", async (name, category) => await fetch(`/searchResult/${category}`)); // TODO
 
     let rmButton;
-    if (!listing) {
+    if (!listing) { // if its not for listing
         rmButton = document.createElement("button");
         rmButton.innerHTML = "Remove";
         rmButton.classList.add("btn", "w-50", "mt-1");
@@ -66,6 +82,7 @@ const createListing = (category, name, price, listing) => {
         });
     }
 
+    // append all elements
     divImg.appendChild(img);
     divDesc.appendChild(itemName);
     divDesc.appendChild(desc);
@@ -82,7 +99,7 @@ const createListing = (category, name, price, listing) => {
 }
 
 /**
- * changes the category listings
+ * changes the category header of listing through dropdown
  */
 const setCategory = () => {
     let heading = document.querySelector("#category-title");
@@ -96,6 +113,10 @@ const setCategory = () => {
     setListing(value);
 }
 
+/**
+ * changes the category header of listing through image clicker
+ * @param {*} value of img (category)
+ */
 const setCategoryThruImg = (value) => {
     let heading = document.querySelector("#category-title");
     let options = select.childNodes;
@@ -108,7 +129,8 @@ const setCategoryThruImg = (value) => {
 }
 
 /**
- * set the listing appropriate to the category
+ * changes the listing when category is changed
+ * @param {*} category newly selected category
  */
 const setListing = (category) => {
     let data = jsonData.get(category);
@@ -121,21 +143,28 @@ const setListing = (category) => {
 }
 
 /**
- * fills the selected item section
+ * adds item to cart
+ * @param {*} category of item
+ * @param {*} name of item
+ * @param {*} price of item
  */
-const addToList = (category, name, price) => {
+const addToCart = (category, name, price) => {
+    // if cart is empty
     if (!itemsInCart) {
-        selectedItems.innerHTML = "";
+        selectedItems.innerHTML = ""; // clears cart
 
+        // create search all button
         let searchBtn = document.createElement("button");
         searchBtn.id = "search-all"
         searchBtn.style = "background-color: var(--custom-myNavbar);";
         searchBtn.classList.add("btn", "w-50", "mt-2", "m-auto");
         searchBtn.innerHTML = "Search All";
 
+        // create total cost header
         let totalCost = document.createElement("h5");
         totalCost.id = "total-cost";
 
+        // create clear all button
         let clearBtn = document.createElement("button");
         clearBtn.id = "clear-all"
         clearBtn.style = "background-color: var(--custom-myNavbar);";
@@ -153,29 +182,37 @@ const addToList = (category, name, price) => {
     updateTotalCost();
 };
 
+/**
+ * clears and reset the cart
+ */
 const clearAll = () => {
     let searchBtn = document.getElementById("search-all");
     let totalCost = document.getElementById("total-cost")
     let clearBtn = document.getElementById("clear-all");
+    let h5 = document.createElement("h5");
 
     searchBtn.remove();
     totalCost.remove();
     clearBtn.remove();
     selectedItems.innerHTML = "";
-    let h5 = document.createElement("h5");
+    
     h5.innerHTML = "Start adding items to see them here!";
-    document.querySelector(".pc-builder > div").appendChild(h5);
+    selectedItems.appendChild(h5);
     itemsInCart = 0;
 };
 
+/**
+ * updates the total cost
+ */
 const updateTotalCost = () => {
     let totalCostHeader = document.getElementById("total-cost");
     let items = selectedItems.childNodes; 
     let totalCost = 0;
 
+    // loops through all items in cart
     items.forEach((item) => {
         let price = item.childNodes[1].childNodes[1].innerHTML;
-        if (price == "Price: Not available")
+        if (price == "Price: Not available") // if price data is not available
             price = 0;
         else
             price = price.split("$")[1];
@@ -186,9 +223,14 @@ const updateTotalCost = () => {
 
 select.addEventListener("change", setCategory);
 
-/**
- * gpt front end section
-*/
+
+
+
+
+/** ==================================
+ *  GPT CHATBOT SECTION
+ *  ==================================
+ */ 
 
 let button = document.getElementById('sendButton')
 let chatInput = document.getElementById('input')
