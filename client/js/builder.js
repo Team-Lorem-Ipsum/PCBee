@@ -79,6 +79,7 @@ const createListing = (category, name, price, listing) => {
             itemsInCart--;
             if (!itemsInCart) 
                 clearAll();
+            showNotification("Item has been removed");
         });
     }
 
@@ -180,6 +181,7 @@ const addToCart = (category, name, price) => {
     itemsInCart += 1;
     createListing(category, name, price, false);
     updateTotalCost();
+    showNotification("Item has been added");
 };
 
 /**
@@ -220,6 +222,25 @@ const updateTotalCost = () => {
     })
     totalCostHeader.innerHTML = `Total: $${totalCost}`;
 };
+
+/**
+ * shows notification on screen
+ * @param {*} message the message to be displayed
+ */
+const showNotification = (message) => {
+    let notice = document.createElement("div");
+    let icon = document.createElement("i");
+
+    icon.classList.add("bi", "bi-check", "h5");
+    notice.textContent = message;
+    notice.classList.add("notification");
+    notice.appendChild(icon);
+    document.body.appendChild(notice);
+
+    setTimeout(() => {
+        notice.remove();
+    }, 2000); 
+}
 
 select.addEventListener("change", setCategory);
 
