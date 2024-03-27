@@ -6,7 +6,7 @@
     let response = await fetch(url);
     let data = await response.json();
     return data;
-  }
+  };
   //category ids
   const category_ids={
     "gpu": 27386,
