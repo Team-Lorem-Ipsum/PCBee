@@ -145,7 +145,7 @@
    * 
    * redirect new tab to item description page with category and item id
    */
-   app.get("/search/category=:category&itemId =:itemId", async (req, res) => {
+   app.get("/item-desc/category=:category&itemId =:itemId", async (req, res) => {
       let category = req.params.category;
       let itemId = req.params.itemId;
       let redirectURL = `${config.ROOT}/item-desc.html?category=${category}&itemId=${itemId}`;
