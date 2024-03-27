@@ -204,11 +204,19 @@ input[type="image"]:hover {
   }
 }
 
-.product-listing {
+.product-listing, .selected-items {
   max-height: 500px; /* Adjust height as needed */
   overflow-y: auto;
 }
 
-.product-listing img {
+.product-listing img, .selected-items img {
   width: 10em;
+}
+
+.btn {
+  background-color: var(--custom-myNavbar) !important;
+}
+
+.btn:hover {
+  border: 1px solid black !important;
 }

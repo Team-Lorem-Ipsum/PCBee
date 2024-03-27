@@ -3,7 +3,7 @@ let select = document.querySelector("#category-select");
 let jsonData = new Map();
 let selectedItems = document.querySelector(".selected-items")
 let productListing = document.querySelector(".product-listing");
-let isFirstTime = true;
+let itemsInCart = 0;
 let categories = ["case", "gpu", "cpu", "caseFan", "memory", "monitor", "motherboard"]
 const maxListing = 50;
 
@@ -41,25 +41,41 @@ const createListing = (category, name, price, listing) => {
     itemName.textContent = name;
 
     let desc = document.createElement("p");
-    desc.textContent = `Price: $${price}`;
+    price = price? `$${price}`: "Not available";
+    desc.innerHTML = `Price: ${price}`;
 
     let addBtn = document.createElement("button");
     addBtn.innerHTML = listing?"Add to List":"Search Item";
-    addBtn.style = "background-color: var(--custom-myNavbar);";
     addBtn.classList.add("btn", "w-50");
-    if (listing)
+    if (listing) // if bubble is for product listing, NOT cart
         addBtn.addEventListener("click", () => addToList(category, name, price));
     else
-        addBtn.addEventListener("click", () => console.log("eBay time")); // TODO
+        addBtn.addEventListener("click", async (name, category) => await fetch(`/searchResult/${category}`)); // TODO
+
+    let rmButton;
+    if (!listing) {
+        rmButton = document.createElement("button");
+        rmButton.innerHTML = "Remove";
+        rmButton.classList.add("btn", "w-50", "mt-1");
+        rmButton.addEventListener("click", () => {
+            wrapper.remove();
+            updateTotalCost();
+            itemsInCart--;
+            if (!itemsInCart) 
+                clearAll();
+        });
+    }
 
     divImg.appendChild(img);
     divDesc.appendChild(itemName);
     divDesc.appendChild(desc);
     divDesc.appendChild(addBtn);
+    if (rmButton)
+        divDesc.appendChild(rmButton)
     wrapper.appendChild(divImg);
     wrapper.appendChild(divDesc);
 
-    if (listing)
+    if (listing) // if bubble is for product listing, NOT cart
         productListing.appendChild(wrapper);  
     else
         selectedItems.appendChild(wrapper);
@@ -96,7 +112,6 @@ const setCategoryThruImg = (value) => {
  */
 const setListing = (category) => {
     let data = jsonData.get(category);
-    console.log(data);
     productListing.innerHTML = "";
     for (let i = 0; i < maxListing; i++) {
         let name = data[i].name;
@@ -109,16 +124,64 @@ const setListing = (category) => {
  * fills the selected item section
  */
 const addToList = (category, name, price) => {
-    if (isFirstTime) {
-        isFirstTime = false;
+    if (!itemsInCart) {
         selectedItems.innerHTML = "";
+
         let searchBtn = document.createElement("button");
+        searchBtn.id = "search-all"
         searchBtn.style = "background-color: var(--custom-myNavbar);";
-        searchBtn.classList.add("btn", "w-50", "mt-2");
+        searchBtn.classList.add("btn", "w-50", "mt-2", "m-auto");
         searchBtn.innerHTML = "Search All";
+
+        let totalCost = document.createElement("h5");
+        totalCost.id = "total-cost";
+
+        let clearBtn = document.createElement("button");
+        clearBtn.id = "clear-all"
+        clearBtn.style = "background-color: var(--custom-myNavbar);";
+        clearBtn.classList.add("btn", "w-50", "mt-2", "m-auto");
+        clearBtn.innerHTML = "Clear All";
+        clearBtn.addEventListener("click", () => clearAll());
+
+        document.querySelector(".pc-builder > div").appendChild(totalCost);
         document.querySelector(".pc-builder > div").appendChild(searchBtn);
+        document.querySelector(".pc-builder > div").appendChild(clearBtn);
     }
+    price = parseFloat(price.split("$")[1]); // to account for ther dollar sign
+    itemsInCart += 1;
     createListing(category, name, price, false);
+    updateTotalCost();
+};
+
+const clearAll = () => {
+    let searchBtn = document.getElementById("search-all");
+    let totalCost = document.getElementById("total-cost")
+    let clearBtn = document.getElementById("clear-all");
+
+    searchBtn.remove();
+    totalCost.remove();
+    clearBtn.remove();
+    selectedItems.innerHTML = "";
+    let h5 = document.createElement("h5");
+    h5.innerHTML = "Start adding items to see them here!";
+    document.querySelector(".pc-builder > div").appendChild(h5);
+    itemsInCart = 0;
+};
+
+const updateTotalCost = () => {
+    let totalCostHeader = document.getElementById("total-cost");
+    let items = selectedItems.childNodes; 
+    let totalCost = 0;
+
+    items.forEach((item) => {
+        let price = item.childNodes[1].childNodes[1].innerHTML;
+        if (price == "Price: Not available")
+            price = 0;
+        else
+            price = price.split("$")[1];
+        totalCost += parseFloat(price);
+    })
+    totalCostHeader.innerHTML = `Total: $${totalCost}`;
 };
 
 select.addEventListener("change", setCategory);
