@@ -122,7 +122,7 @@
       let url = "https://api.ebay.com/buy/marketing/v1_beta/merchandised_product";
       // get category id from category_ids using category name
       let metricName = "BEST_SELLING";
-
+      let id = req.params.id;
       let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
