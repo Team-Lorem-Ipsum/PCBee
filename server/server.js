@@ -114,38 +114,38 @@ const req = require("express/lib/request");
 
 const chatHistory = [{
   "role": "system",
-  "content": `You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. If the user asks for a reccommendation, give a message as you usually would but include a array at the bottom of the chatbots message in json format of the items recommended and in proper json indentation and in this format: [\n{\n "Name": nameOfProduct,\n "Price": number,\n "Type": pcPart\n}, \n{\n "Name": nameOfProduct,\n "Price": number,\n "Type": pcPart\n}\n]`
+  "content": `You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts.`
 }];
 
+//   "content": `You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts. If the user asks for a reccommendation, give a message as you usually would but include a array at the bottom of the chatbots message in json format of the items recommended and in proper json indentation and in this format: [\n{\n "Name": nameOfProduct,\n "Price": number,\n "Type": pcPart\n}, \n{\n "Name": nameOfProduct,\n "Price": number,\n "Type": pcPart\n}\n]`
 // const regex = /[{\n][\s]+(".*": {.*})[,\n]}?/g;
 // const regex = /{\s*{?[\s]+("\w+": .*\s*)+}?,?\n?}?/g
-const regex = /(\[\n)?({\n)?\s?"\w+": .*(\n},?)?\n]?/g
+// const regex = /(\[\n)?({\n)?\s?"\w+": .*(\n},?)?\n]?/g
 
-function extractJSON(msg) {
-  let regexConverted = msg.match(regex);
+// function extractJSON(msg) {
+//   let regexConverted = msg.match(regex);
 
-  if (!regexConverted)
-    return [];
+//   if (!regexConverted)
+//     return [];
 
-    let jsonObjects = '';
-    regexConverted.forEach((match, test) => {
-      try {
-        console.log(match, test)
-        jsonObjects += match;
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-      }
-    });
+//     let jsonObjects = '';
+//     regexConverted.forEach((match) => {
+//       try {
+//         jsonObjects += match;
+//       } catch (error) {
+//         console.error('Error parsing JSON:', error);
+//       }
+//     });
 
-    console.log("original: " + msg)
-    console.log('-------------------------')
+//     console.log("original: " + msg)
+//     console.log('-------------------------')
 
-    const objects = jsonObjects.replace("\n","")
-    console.log("string before converetd to json: " + objects)
-    console.log('-------------------------')
+//     const objects = jsonObjects.replace("\n","")
+//     console.log("string before converetd to json: " + objects)
+//     console.log('-------------------------')
 
-    return [JSON.parse(objects), objects];
-} 
+//     return [JSON.parse(objects), objects];
+// } 
 
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
@@ -173,8 +173,8 @@ app.post("/response/gpt", async (req, res) => {
         const completion = response.data.choices[0].message.content;
         // console.log(completion)
         
-        var extracted = extractJSON(completion);
-        console.log(extracted[0])
+        // var extracted = extractJSON(completion);
+        // console.log(extracted[0])
 
         // Add AI response to chat history
         chatHistory.push({
