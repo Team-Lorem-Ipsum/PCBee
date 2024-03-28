@@ -126,7 +126,7 @@
       let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
+          'Content-Type': "application/json",
         },
       });
       //send the response 
