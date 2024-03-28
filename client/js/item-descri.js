@@ -22,9 +22,10 @@
   let url = new URLSearchParams(window.location.search);
   let catId = url.get("category");
   let itemId = url.get("itemId");
-  console.log(catId, "itemid: ",itemId);
+  console.log("cat: ",catId, "itemid: ",itemId);
 
   const displayPopItem = async() => {
+    console.log("hit");
     let data = await getJSONData(`/popular/${category_ids[catId]}`);
     console.log(data);
   };
