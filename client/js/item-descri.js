@@ -3,9 +3,15 @@
   //url = item-desc.html?category=:category&itemId=:itemId
   //get the data from the server
   const getJSONData = async (url) => {
-    let response = await fetch(url);
-    let data = await response.json();
-    return data;
+    try{
+      let response = await fetch(url);
+      let data = await response.json();
+      return data;
+    }
+    catch(error){
+      console.error("Error fetching data from eBay API:", error);
+      res.status(500).send("Error fetching data from eBay API");
+    }
   };
   //category ids
   const category_ids={
