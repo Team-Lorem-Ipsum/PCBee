@@ -29,7 +29,6 @@
     let data = await getJSONData(`/popular/${category_ids[catId]}`);
     console.log(data);
   };
-  document.addEventListener("load",() => {
+  document.addEventListener("DOMContentLoaded", () => {
     displayPopItem();
-
-  });
+  }); 
