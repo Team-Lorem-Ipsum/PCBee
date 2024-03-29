@@ -51,10 +51,11 @@
     let title = document.getElementById("title");
     let price = document.getElementById("price");
     let condition = document.getElementById("condition");
+    let titleHTML = `<a href="${data.href}" target ="_blank">${itemSummaries.title}</a>`;
 
     img.src = itemSummaries.image.imageUrl;
-    title.innerHTML = itemSummaries.title;
-    price.innerHTML = itemSummaries.price.value;
+    title.innerHTML = titleHTML;
+    price.innerHTML = "$ "+ itemSummaries.price.value + " USD";
     condition.innerHTML = itemSummaries.condition;
 
     
