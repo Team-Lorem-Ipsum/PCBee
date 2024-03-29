@@ -67,6 +67,7 @@ const createListing = (category, name, price, listing) => {
         addBtn.addEventListener("click", () => addToCart(category, name, price));
     else
         addBtn.addEventListener("click", async (name, category) => {
+            console.log("clicked");
             await fetch(`/item-desc/category=${category}&itemName=${name}`);
         }); // TODO
 
