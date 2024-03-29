@@ -38,6 +38,6 @@
   document.addEventListener("DOMContentLoaded", () => {
     //displyItemDescription();
     //displaySimilarItem();
-    displayPopItem();
+    //displayPopItem();
 
   }); 
