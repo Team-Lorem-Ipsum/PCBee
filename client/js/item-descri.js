@@ -51,7 +51,7 @@
     let title = document.getElementById("title");
     let price = document.getElementById("price");
     let condition = document.getElementById("condition");
-    let titleHTML = `<a href="${data.href}" target ="_blank">${itemSummaries.title}</a>`;
+    let titleHTML = `<a href="${itemSummaries.itemWebUrl}" target ="_blank">${itemSummaries.title}</a>`;
 
     img.src = itemSummaries.image.imageUrl;
     title.innerHTML = titleHTML;
