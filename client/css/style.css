@@ -43,6 +43,11 @@ h1, h4, h5 {
   color: white;
 }
 
+.sign-in :hover {
+  background-color: #9b711c;
+  color: white;
+}
+
 .banner {
   background-image: url("../assets/banner_logo.png");
   background-position: bottom;
@@ -231,4 +236,9 @@ input[type="image"]:hover {
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
 }
