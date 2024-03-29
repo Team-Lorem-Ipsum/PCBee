@@ -145,12 +145,12 @@
    * 
    * redirect new tab to item description page with category and item id
    */
-   app.get("/item-desc/category=:category&itemId=:itemId", async (req, res) => {
+   app.get("/item-desc/category=:category&itemName=:itemName", async (req, res) => {
     console.log("Redirecting to item description page");
       let category = req.params.category;
-      let itemId = req.params.itemId;
-      console.log(`category: ${category}, itemId: ${itemId}`);
-      let redirectURL = `/item-description.html?category=${category}&itemId=${itemId}`;
+      let itemName = req.params.itemName;
+      console.log(`category: ${category}, itemName: ${itemName}`);
+      let redirectURL = `/item-description.html?category=${category}&itemName=${itemName}`;
       res.send(`<script>window.open("${redirectURL}", "_blank");</script>`);
    });
 
