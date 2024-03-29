@@ -1,5 +1,5 @@
 
-
+  let data;
   //url = item-desc.html?category=:category&itemId=:itemId
   //get the data from the server
   const getJSONData = async (url) => {
@@ -27,16 +27,42 @@
   //get the category and item id from the url
   let url = new URLSearchParams(window.location.search);
   let catId = url.get("category");
-  let itemId = url.get("itemId");
-  console.log("cat: ",catId, "itemid: ",itemId);
+  let itemName = url.get("itemName");
+  console.log("cat: ",catId, "itemName: ",itemName);
 
   const displayPopItem = async() => {
     console.log("hit");
     let data = await getJSONData(`/popular/${category_ids[catId]}`);
     console.log(data);
   };
+
+   const displyItemDescription = () =>{
+    //get the item description from the server
+    /**
+     * itemSummaries.image img
+     * itemSummaries.title title
+     * itemSummaries.price.value price
+     * itemSummaries.condition condition
+     */
+    let itemSummaries = data.itemSummaries[0];
+
+
+    let img = document.getElementById("item-img");
+    let title = document.getElementById("title");
+    let price = document.getElementById("price");
+    let condition = document.getElementById("condition");
+
+    img.src = itemSummaries.image.imageUrl;
+    title.innerHTML = itemSummaries.title;
+    price.innerHTML = itemSummaries.price.value;
+    condition.innerHTML = itemSummaries.condition;
+
+    
+    
+   };
   document.addEventListener("DOMContentLoaded", () => {
-    //displyItemDescription();
+    data = getJSONData(`/search/${itemName}`);
+    displyItemDescription();
     //displaySimilarItem();
     //displayPopItem();
 
