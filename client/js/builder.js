@@ -66,8 +66,8 @@ const createListing = (category, name, price, listing) => {
     if (listing) // if bubble is for product listing, NOT cart
         addBtn.addEventListener("click", () => addToCart(category, name, price));
     else
-        console.log("clicked name: ", name, "category: ", category);
-        addBtn.addEventListener("click", async (name, category) => {
+        //console.log("clicked name: ", name, "category: ", category);
+        addBtn.addEventListener("click", async () => {
             console.log("clicked name: ", name, "category: ", category);
             await fetch(`/item-desc/category=${category}&itemName=${name}`);
         }); // TODO
