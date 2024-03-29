@@ -25,5 +25,5 @@ body {
   background-image: url("../assets/banner_logo.png");
   background-position: bottom;
   background-size: cover;
-  background-color: var(--custom-myOrange);
+  background-color: var(--custom-myYellow);
 }
