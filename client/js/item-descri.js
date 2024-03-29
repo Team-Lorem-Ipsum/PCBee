@@ -98,9 +98,11 @@
    }
    const displaySimilarItem = async() => {
     let similarItems = document.getElementById("similar-item-cards");
-    data.itemSummaries.forEach((item)=>{
-      let card = createCard(item);
-      similarItems.appendChild(card);
+    data.itemSummaries.forEach((item,i)=>{
+      if(i>0){
+        let card = createCard(item);
+        similarItems.appendChild(card);
+      }
     });
    };
   document.addEventListener("DOMContentLoaded",async () => {
