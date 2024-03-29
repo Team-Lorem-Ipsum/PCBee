@@ -55,7 +55,7 @@
 
     img.src = itemSummaries.image.imageUrl;
     title.innerHTML = titleHTML;
-    price.innerHTML = "$ "+ itemSummaries.price.value + " USD";
+    price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
     condition.innerHTML = itemSummaries.condition;
 
     
