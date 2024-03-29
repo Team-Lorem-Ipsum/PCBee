@@ -30,7 +30,7 @@ nav {
   background-color: var(--custom-myCreamWhite);
 }
 
-h1, h4 {
+h1, h4, h5 {
   font-family: 'Istok Web';
 }
 
@@ -202,4 +202,33 @@ input[type="image"]:hover {
   100% {
       background-color: lightgreen;
   }
+}
+
+.product-listing, .selected-items {
+  max-height: 500px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.product-listing img, .selected-items img {
+  width: 10em;
+}
+
+.btn {
+  background-color: var(--custom-myNavbar) !important;
+}
+
+.btn:hover {
+  border: 1px solid black !important;
+}
+
+.notification {
+  position: fixed;
+  bottom: 100px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 9999; 
+  background-color: #198754;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
 }
