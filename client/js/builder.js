@@ -69,7 +69,7 @@ const createListing = (category, name, price, listing) => {
         //console.log("clicked name: ", name, "category: ", category);
         addBtn.addEventListener("click", () => {
             console.log("clicked name: ", name, "category: ", category);
-            fetch(`/item-desc/category=${category}&itemName=${name}`);
+            window.open(`https://pcbee.onrender.com//item-desc/category=${category}&itemName=${name}`, '_blank');
         }); // TODO
 
     let rmButton;
