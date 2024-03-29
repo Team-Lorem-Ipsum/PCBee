@@ -106,7 +106,7 @@
   document.addEventListener("DOMContentLoaded",async () => {
     data = await getJSONData(`/search/${itemName}`);
     displayItemDescription();
-    //displaySimilarItem();
+    displaySimilarItem();
     //displayPopItem();
 
   }); 
