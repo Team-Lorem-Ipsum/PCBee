@@ -59,7 +59,7 @@
    function createCard(item){
     //create a card for the item
     let card = document.createElement("div");
-    card.className = "card shadow";
+    card.className = "card shadow col-4";
 
     //create an image element
     let img = document.createElement("img");
