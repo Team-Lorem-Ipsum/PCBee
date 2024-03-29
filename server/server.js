@@ -151,7 +151,7 @@
       let itemName = req.params.itemName;
       console.log(`category: ${category}, itemName: ${itemName}`);
       let redirectURL = `/item-description.html?category=${category}&itemName=${itemName}`;
-      res.send(`<script>window.open("${redirectURL}", "_blank");</script>`);
+      res.send(`<script>window.open("${redirectURL}");</script>`);
    });
 
 
