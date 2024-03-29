@@ -36,5 +36,8 @@
     console.log(data);
   };
   document.addEventListener("DOMContentLoaded", () => {
+    //displyItemDescription();
+    //displaySimilarItem();
     displayPopItem();
+
   }); 
