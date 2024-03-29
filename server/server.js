@@ -83,7 +83,7 @@
 
       let response = await axios.get(`${url}?${q}&${limit}`, {
         headers: {
-          Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
+          Authorization: `Bearer ${access_token}`, // TODO
           "Content-Type": "application/json",
         },
       });
