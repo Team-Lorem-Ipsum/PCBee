@@ -164,6 +164,15 @@ const addToCart = (category, name, price) => {
         searchBtn.style = "background-color: var(--custom-myNavbar);";
         searchBtn.classList.add("btn", "w-50", "mt-2", "m-auto");
         searchBtn.innerHTML = "Search All";
+        searchBtn.addEventListener("click", () => {
+            let items = selectedItems.childNodes;
+            items.forEach(item => {
+                let name = item.childNodes[1].childNodes[0].textContent;
+                let category = item.childNodes[0].childNodes[0].alt;
+                window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
+            });
+            
+        })
 
         // create total cost header
         let totalCost = document.createElement("h5");
