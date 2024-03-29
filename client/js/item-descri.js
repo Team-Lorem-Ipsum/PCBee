@@ -36,7 +36,7 @@
     console.log(data);
   };
 
-   const displyItemDescription = () =>{
+   const displayItemDescription = () =>{
     //get the item description from the server
     /**
      * itemSummaries.image img
@@ -60,9 +60,9 @@
     
     
    };
-  document.addEventListener("DOMContentLoaded", () => {
-    data = getJSONData(`/search/${itemName}`);
-    displyItemDescription();
+  document.addEventListener("DOMContentLoaded",async () => {
+    data = await getJSONData(`/search/${itemName}`);
+    displayItemDescription();
     //displaySimilarItem();
     //displayPopItem();
 
