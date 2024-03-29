@@ -30,11 +30,6 @@
   let itemName = url.get("itemName");
   console.log("cat: ",catId, "itemName: ",itemName);
 
-  const displayPopItem = async() => {
-    console.log("hit");
-    let data = await getJSONData(`/popular/${category_ids[catId]}`);
-    console.log(data);
-  };
 
    const displayItemDescription = () =>{
     //get the item description from the server
@@ -50,16 +45,63 @@
     let img = document.getElementById("item-img");
     let title = document.getElementById("title");
     let price = document.getElementById("price");
-    let condition = document.getElementById("condition");
+    let shortDescription = document.getElementById("shortDescription");
     let titleHTML = `<a href="${itemSummaries.itemWebUrl}" target ="_blank">${itemSummaries.title}</a>`;
 
     img.src = itemSummaries.image.imageUrl;
     title.innerHTML = titleHTML;
     price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
-    condition.innerHTML = itemSummaries.condition;
+    shortDescription.innerHTML = itemSummaries.condition;
 
     
     
+   };
+   function createCard(item){
+    //create a card for the item
+    let card = document.createElement("div");
+    card.className = "card shadow";
+
+    //create an image element
+    let img = document.createElement("img");
+    img.className = "card-img-top";
+    img.src = item.image.imageUrl;
+    card.appendChild(img);
+
+    //create a card body
+    let cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    card.appendChild(cardBody);
+
+    //create a title element
+    let title = document.createElement("h2");
+    title.className = "card-title";
+    title.innerHTML = item.title;
+    cardBody.appendChild(title);
+
+    //create a text element
+    let text = document.createElement("p");
+    text.className = "card-text";
+    text.innerHTML = item.shortDescription;
+    cardBody.appendChild(text);
+
+    //create a price element
+    let price = document.createElement("p");
+    price.innerHTML = "$ "+ item.price.value +" " + item.price.currency;
+    cardBody.appendChild(price);
+
+  
+    card.addEventListener("click",()=>{
+      window.open(`/item-desc/category=${catId}&itemName=${item.title}`, "_blank");
+    }); //add event listener to the card
+    
+    return card;
+   }
+   const displaySimilarItem = async() => {
+    let similarItems = document.getElementById("similar-item-cards");
+    data.itemSummaries.forEach((item)=>{
+      let card = createCard(item);
+      similarItems.appendChild(card);
+    });
    };
   document.addEventListener("DOMContentLoaded",async () => {
     data = await getJSONData(`/search/${itemName}`);
