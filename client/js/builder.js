@@ -357,3 +357,5 @@ window.addEventListener("load", async () => {
         console.error("Error fetching JSON data:", error);
     }
 });
+
+module.exports = { testEnvironment: 'jsdom',clearAll, sendChat, addToCart, setListing, createListing};
