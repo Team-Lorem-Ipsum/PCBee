@@ -116,13 +116,13 @@
     sellerName.textContent = item.seller.username;
 
     if(+rating >60){
-      theThumb.classList.add("text-success bi-hand-thumbs-up-fill");
+      theThumb.classList.add("text-success","bi-hand-thumbs-up-fill");
 
       sellerFeedback.textContent = rating;
       sellerFeedback.appendChild(theThumb);
     }
     else{
-      theThumb.classList.add("text-danger bi-hand-thumbs-down-fill");
+      theThumb.classList.add("text-danger","bi-hand-thumbs-down-fill");
 
       sellerFeedback.textContent = rating;
       sellerFeedback.appendChild(theThumb);
