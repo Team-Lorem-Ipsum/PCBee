@@ -110,9 +110,9 @@
    const displaySellerInfo = async() => {
     let sellerName = document.getElementById("seller-name");
     let sellerFeedback = document.getElementById("seller-feedback");
-
-    sellerName.textContent = data.seller.username;
-    sellerFeedback.textContent = data.seller.feedbackPercentage;
+    let item = data.itemSummaries[0];
+    sellerName.textContent = item.seller.username;
+    sellerFeedback.textContent = item.seller.feedbackPercentage;
 
    };
 
