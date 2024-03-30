@@ -118,6 +118,7 @@
 
   document.addEventListener("DOMContentLoaded",async () => {
     data = await getJSONData(`/search/${itemName}`);
+    console.log(data);
     displayItemDescription();
     displaySimilarItem();
     displaySellerInfo();
