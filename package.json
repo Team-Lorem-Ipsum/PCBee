@@ -4,11 +4,13 @@
   "description": "Using Node.js as Webserver",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server/server.js"
+    "start": "nodemon ./server/server.js",
+    "test": "jest"
   },
   "author": "Team Lorem Ipsum",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0"
   },
   "dependencies": {

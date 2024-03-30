@@ -1,5 +1,8 @@
 const { json } = require("body-parser");
 const req = require("express/lib/request");
+const server = {
+  
+};
 
 (() => {
   const config = require(`${__dirname}/config/config`);
