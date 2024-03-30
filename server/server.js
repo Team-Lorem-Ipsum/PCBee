@@ -147,16 +147,16 @@ app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
 
     // Add user message to chat history
-    globalServerFunctions.GPT_CHAT_HISTORY.push({
+    GPT_CHAT_HISTORY.push({
         "role": "user",
         "content": message
     });
     try {
-        const response = await globalServerFunctions.GPT_API_CALL(message);
+        const response = await GPT_API_CALL();
         const completion = response.data.choices[0].message.content;
 
         // Add AI response to chat history
-        globalServerFunctions.GPT_CHAT_HISTORY.push({
+        GPT_CHAT_HISTORY.push({
             "role": "assistant",
             "content": completion
         });
