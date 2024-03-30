@@ -1,13 +1,11 @@
 const { json } = require("body-parser");
 const req = require("express/lib/request");
-const server = {
-  
-};
 
 (() => {
   const config = require(`${__dirname}/config/config`);
   const express = require("express");
   const axios = require("axios");
+  const globalServerFunctions = require("./globalServerFunctions")
 
   require("dotenv").config();
 
@@ -145,37 +143,20 @@ const server = {
 
     // AI
 
-const chatHistory = [{
-  "role": "system",
-  "content": `You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts.`
-}];
-
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
-    const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = "";
+
     // Add user message to chat history
-    chatHistory.push({
+    globalServerFunctions.GPT_CHAT_HISTORY.push({
         "role": "user",
         "content": message
     });
     try {
-        const response = await axios.post(apiUrl, {
-            model: "gpt-3.5-turbo-0125",
-            messages: chatHistory,
-            temperature: 0.7,
-            n: 1
-        }, {
-            headers: {
-                'Authorization':  `Bearer ${apiKey}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
+        const response = await globalServerFunctions.GPT_API_CALL(message);
         const completion = response.data.choices[0].message.content;
 
         // Add AI response to chat history
-        chatHistory.push({
+        globalServerFunctions.GPT_CHAT_HISTORY.push({
             "role": "assistant",
             "content": completion
         });
