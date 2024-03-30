@@ -96,6 +96,7 @@
     
     return card;
    }
+   //display the similar item
    const displaySimilarItem = async() => {
     let similarItems = document.getElementById("similar-item-cards");
     data.itemSummaries.forEach((item,i)=>{
@@ -105,10 +106,21 @@
       }
     });
    };
+
+   const displaySellerInfo = async() => {
+    let sellerName = document.getElementById("seller-name");
+    let sellerFeedback = document.getElementById("seller-feedback");
+
+    sellerName.textContent = data.seller.username;
+    sellerFeedback.textContent = data.seller.feedbackPercentage;
+
+   };
+
   document.addEventListener("DOMContentLoaded",async () => {
     data = await getJSONData(`/search/${itemName}`);
     displayItemDescription();
     displaySimilarItem();
+    displaySellerInfo();
     //displayPopItem();
 
   }); 
