@@ -111,8 +111,16 @@
     let sellerName = document.getElementById("seller-name");
     let sellerFeedback = document.getElementById("seller-feedback");
     let item = data.itemSummaries[0];
+    let rating = item.seller.feedbackPercentage;
+    let theThumb = document.getElementById("thumb");
     sellerName.textContent = item.seller.username;
-    sellerFeedback.textContent = item.seller.feedbackPercentage;
+
+    if(+rating >60){
+      theThumb.classList.add("text-success");
+    }
+    else{
+      theThumb.classList.add("text-danger");
+    }
 
    };
 
