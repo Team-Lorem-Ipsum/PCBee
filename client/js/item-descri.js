@@ -112,14 +112,20 @@
     let sellerFeedback = document.getElementById("seller-feedback");
     let item = data.itemSummaries[0];
     let rating = item.seller.feedbackPercentage;
-    let theThumb = document.getElementById("thumb");
+    let theThumb = document.getElementById("i");
     sellerName.textContent = item.seller.username;
 
     if(+rating >60){
       theThumb.classList.add("text-success");
+      theThumb.className = "bi bi-hand-thumbs-up-fill";
+      sellerFeedback.textContent = rating;
+      sellerFeedback.appendChild(theThumb);
     }
     else{
       theThumb.classList.add("text-danger");
+      theThumb.className = "bi bi-hand-thumbs-down-fill";
+      sellerFeedback.textContent = rating;
+      sellerFeedback.appendChild(theThumb);
     }
 
    };
