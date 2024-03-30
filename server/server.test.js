@@ -1,20 +1,22 @@
 const axios = require('axios');
-const server = require('./server');
-const builder = require('../client/js/builder');
+const serverFunctions = require('./globalServerFunctions');
 
+test('Check if chatbot responds to user', async () => {    
+    try {
+        const response = await serverFunctions.GPT_API_CALL();
+        expect(response).toBeDefined();
+    } catch (error) {
+        console.error('Error calling GPT API:', error);
+        expect(error).toBeNull();
+    }
+});
 
-
-test('Check if chatbot responds to user', async ()=>{
-    const response = await axios.post(apiUrl, {
-        model: "gpt-3.5-turbo-0125",
-        messages: chatHistory,
-        temperature: 0.7,
-        n: 1
-    }, {
-        headers: {
-            'Authorization':  `Bearer ${apiKey}`,
-            'Content-Type': 'application/json'
-        }
-    });
-    expect(response).toBeDefined();
-} );
+// test('Check to see if the chatbot ', async () => {    
+//     try {
+//         const response = await serverFunctions.GPT_API_CALL()   ;
+//         expect(response).toBeDefined();
+//     } catch (error) {
+//         console.error('Error calling GPT API:', error);
+//         expect(error).toBeNull();
+//     }
+// });
