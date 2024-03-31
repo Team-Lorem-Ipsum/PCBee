@@ -63,7 +63,7 @@
 
     //create an image element
     let img = document.createElement("img");
-    img.className = "card-img-top";
+    img.className = "card-img-top img-fluid";
     img.src = item.image.imageUrl;
     card.appendChild(img);
 
