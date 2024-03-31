@@ -52,9 +52,6 @@
     title.innerHTML = titleHTML;
     price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
     shortDescription.innerHTML = itemSummaries.condition;
-
-    
-    
    };
    function createCard(item){
     //create a div element

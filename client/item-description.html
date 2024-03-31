@@ -34,21 +34,32 @@
 </header>
   <div class="wrapper container p-5">
     <div class="d-flex">
-      <img src="https://m.media-amazon.com/images/I/71t1ClD2EtL._AC_SX425_.jpg" alt="placeholder" id="item-img">
       <!-- placeholder img -->
       <div class="container-fluid" id="Description">
-        <h2 id="title">TITLE HERE</h2>
-        <p id="price">$399.99</p>
-        <p id="shortDescription">Condition</p>
-        <div>
-          <h3>About seller</h3>
-          <p>Seller: <span id="seller-name">Best Buy</span></p>
-          <p>Feedback: <span id="seller-feedback">0.0</span></p>
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-4">
+              <img class="img-fluid rounded-start" src="https://m.media-amazon.com/images/I/71t1ClD2EtL._AC_SX425_.jpg" alt="placeholder" id="item-img">
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <h2 id="title">TITLE HERE</h2>
+                <p id="price">$399.99</p>
+                <p id="shortDescription">Condition</p>
+                <div>
+                  <h3>About seller</h3>
+                  <p>Seller: <span id="seller-name">Best Buy</span></p>
+                  <p>Feedback: <span id="seller-feedback">0.0</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
       </div>
     </div>
-    <div class="container-fluid m-4 d-flex flex-column justify-content-center">
-      <h3>Similar item</h3>
+    <div class="container-fluid m-4 d-flex flex-column align-content-center">
+      <h2 class="text-center">Similar item</h2>
 
       <div class="row px-5 g-3" id="similar-item-cards">
 
