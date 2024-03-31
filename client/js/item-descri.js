@@ -57,10 +57,15 @@
     
    };
    function createCard(item){
+    //create a div element
+    let div = document.createElement("div");
+    div.className = "col-4";
+
     //create a card for the item
     let card = document.createElement("div");
-    card.className = "card shadow col-4";
-
+    card.className = "card shadow";
+    div.appendChild(card);
+    
     //create an image element
     let img = document.createElement("img");
     img.className = "card-img-top img-fluid";
