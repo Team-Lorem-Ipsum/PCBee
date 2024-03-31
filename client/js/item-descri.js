@@ -39,19 +39,19 @@
      * itemSummaries.price.value price
      * itemSummaries.condition condition
      */
-    let itemSummaries = data.itemSummaries[0];
+    let itemSummary = data.itemSummaries[0];
 
 
     let img = document.getElementById("item-img");
     let title = document.getElementById("title");
     let price = document.getElementById("price");
     let shortDescription = document.getElementById("shortDescription");
-    let titleHTML = `<a href="${itemSummaries.itemWebUrl}" target ="_blank">${itemSummaries.title}</a>`;
+    let titleHTML = `<a href="${itemSummary.itemWebUrl}" target ="_blank">${itemSummary.title}</a>`;
 
-    img.src = itemSummaries.image.imageUrl;
+    img.src = itemSummary.image.imageUrl;
     title.innerHTML = titleHTML;
-    price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
-    shortDescription.innerHTML = itemSummaries.shortDescription;
+    price.innerHTML = "$ "+ itemSummary.price.value +" " + itemSummary.price.currency ;
+    shortDescription.innerHTML = itemSummary.shortDescription;
    };
    function createCard(item){
     //create a div element
