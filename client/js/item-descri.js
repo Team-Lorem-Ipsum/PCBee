@@ -112,12 +112,11 @@
     let sellerFeedback = document.getElementById("seller-feedback");
     let item = data.itemSummaries[0];
     let rating = item.seller.feedbackPercentage;
-    let theThumb = document.getElementById("thumb");
+    let theThumb = document.createElement("i");
     sellerName.textContent = item.seller.username;
 
     if(+rating >60){
-      theThumb.classList.add("text-success","bi-hand-thumbs-up-fill");
-
+      theThumb.className = "bi-hand-thumbs-up-fill text-success";
       sellerFeedback.textContent = rating;
     }
     else{
@@ -125,6 +124,7 @@
 
       sellerFeedback.textContent = rating;
     }
+    sellerFeedback.append(theThumb);
 
    };
 
