@@ -58,8 +58,8 @@
    };
    function createCard(item){
     //create a div element
-    let div = document.createElement("div");
-    div.className = "col-4";
+    let cardDiv = document.createElement("div");
+    cardDiv.className = "col-4";
 
     //create a card for the item
     let card = document.createElement("div");
@@ -99,7 +99,7 @@
       window.open(`/item-desc/category=${catId}&itemName=${item.title}`, "_blank");
     }); //add event listener to the card
     
-    return card;
+    return cardDiv;
    }
    //display the similar item
    const displaySimilarItem = async() => {
