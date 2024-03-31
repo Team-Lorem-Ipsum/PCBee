@@ -64,7 +64,7 @@
     //create a card for the item
     let card = document.createElement("div");
     card.className = "card shadow";
-    div.appendChild(card);
+    cardDiv.appendChild(card);
     
     //create an image element
     let img = document.createElement("img");
