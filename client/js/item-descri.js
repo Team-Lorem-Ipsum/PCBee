@@ -51,7 +51,7 @@
     img.src = itemSummaries.image.imageUrl;
     title.innerHTML = titleHTML;
     price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
-    shortDescription.innerHTML = itemSummaries.condition;
+    shortDescription.innerHTML = itemSummaries.shortDescription;
    };
    function createCard(item){
     //create a div element
