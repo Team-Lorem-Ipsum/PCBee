@@ -1,7 +1,13 @@
+const { json } = require("body-parser");
+const req = require("express/lib/request");
+
 (() => {
   const config = require(`${__dirname}/config/config`);
   const express = require("express");
   const axios = require("axios");
+
+  require("dotenv").config();
+
   const app = express();
   const logs = [];
   //category ids for ebay
@@ -23,6 +29,7 @@
    * Middleware declarations
    */
   app.use(express.json());
+
   app.use((request, response, next) => {
     config.logFile(request, logs);
     next();
@@ -114,29 +121,8 @@
       console.log("Access Token:", access_token);
       res.redirect("/");
 
-    });
-
-    // eBay popular item
-  app.get("/popular/:id", async (req, res) => {
-    try {
-      let url = "https://api.ebay.com/buy/marketing/v1_beta/merchandised_product";
-      // get category id from category_ids using category name
-      let metricName = "BEST_SELLING";
-      let id = req.params.id;
-      let response = await axios.get(`${url}?metric_name=${metricName}&category_id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          'Content-Type': "application/json",
-        },
-      });
-      //send the response 
-      res.send(response.data);
-    } catch (error) {
-      console.error("Error fetching data from eBay API:", error);
-      res.status(500).send("Error fetching data from eBay API");
-    }
-  });
-
+    });    
+   // eBay popular item
   // 
   // 
   /**
@@ -154,6 +140,50 @@
       res.redirect(redirectURL);
    });
 
+    // AI
+
+const chatHistory = [{
+  "role": "system",
+  "content": `You are an assistant that helps explain PC parts, give PC builds with specific features (budget, range, fidelity), and guide users how to build PCs. You do not answer anything that isn't related to PC or PC parts.`
+}];
+
+app.post("/response/gpt", async (req, res) => {
+    const message = req.body.prompt;
+    const apiUrl = "https://api.openai.com/v1/chat/completions";
+    const apiKey = "";
+    // Add user message to chat history
+    chatHistory.push({
+        "role": "user",
+        "content": message
+    });
+    try {
+        const response = await axios.post(apiUrl, {
+            model: "gpt-3.5-turbo-0125",
+            messages: chatHistory,
+            temperature: 0.7,
+            n: 1
+        }, {
+            headers: {
+                'Authorization':  `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const completion = response.data.choices[0].message.content;
+
+        // Add AI response to chat history
+        chatHistory.push({
+            "role": "assistant",
+            "content": completion
+        });
+
+        res.send(completion);
+
+    } catch (error) {
+        console.error('Error calling GPT API:', error);
+        res.status(500).send('Error calling GPT API');
+    }
+});
 
     // Start Node.js HTTP webserver
     app.listen(config.PORT, "0.0.0.0", () => {

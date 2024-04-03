@@ -1,3 +1,5 @@
+//chat gt openai api implementation
+
 // DECLARATIONS
 let select = document.querySelector("#category-select");
 let jsonData = new Map();
@@ -279,11 +281,11 @@ let chatBoxFrame = document.querySelector('.chatBoxFrame')
 const createBubble = (args) => {
     let text = args.Message
     let className = args.Class
-    
+
     let chatBubble = document.createElement('li')
     chatBubble.classList.add(className);
     chatBubble.innerHTML = `<h1 class=${className}>${className == 'userChat' ? 'You' : 'ChatBot'}</h1> <p>${text}</p>`
-    
+
     chatBox.appendChild(chatBubble);
     chatBoxFrame.scrollTo(0, chatBoxFrame.scrollHeight)
 }
@@ -293,11 +295,40 @@ const createBubble = (args) => {
  * @param {*} args 
  * @returns 
  */
-const sendChat = (args) => {
+async function sendChat(args) {
+    console.log(args.Message)
     if (!args.Message)
         return
 
     createBubble(args)
+    chatInput.value = ''
+
+    // chat gpt respond here
+    try {
+        const response = await fetch('/response/gpt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: args.Message  
+            })
+        });
+
+        if (!response.ok)
+            throw new Error('failed to catch')
+
+        const AI_response = await response.text();
+        console.log(AI_response);      
+        
+        createBubble({
+            Class: 'botChat',
+            Message: AI_response
+        })
+
+    } catch (error) {
+        
+    }
 }
 
 /**
@@ -311,9 +342,9 @@ let buttonFlicker = (button) => {
 /**
  * this is initializes everything above
  */
-button.addEventListener('click', function() {
+button.addEventListener('click', function () {
     var button = this;
-    
+
     sendChat({
         Class: 'userChat',
         Message: chatInput.value
