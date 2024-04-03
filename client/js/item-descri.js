@@ -82,7 +82,7 @@
     //create a text element
     let text = document.createElement("p");
     text.className = "card-text";
-    text.innerHTML = itemSummaries.shortDescription? itemSummaries.shortDescription : "No description available";
+    text.innerHTML = item.shortDescription? item.shortDescription : "No description available";
 
     cardBody.appendChild(text);
 
