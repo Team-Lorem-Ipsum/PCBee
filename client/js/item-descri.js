@@ -52,7 +52,7 @@
     title.innerHTML = titleHTML;
     price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
     
-    shortDescription.innerHTML = itemSummaries.shortDescription? itemSummaries.shortDescription : "No description available";
+    shortDescription.innerHTML = "Condition: " + itemSummaries.condition? itemSummaries.condition : "No condition available";
 
     
     
@@ -82,7 +82,7 @@
     //create a text element
     let text = document.createElement("p");
     text.className = "card-text";
-    text.innerHTML = item.shortDescription? item.shortDescription : "No description available";
+    text.innerHTML = item.condition? item.condition : "No condition available";
 
     cardBody.appendChild(text);
 
