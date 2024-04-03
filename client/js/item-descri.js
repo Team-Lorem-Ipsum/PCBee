@@ -51,7 +51,8 @@
     img.src = itemSummaries.image.imageUrl;
     title.innerHTML = titleHTML;
     price.innerHTML = "$ "+ itemSummaries.price.value +" " + itemSummaries.price.currency ;
-    shortDescription.innerHTML = itemSummaries.condition;
+    
+    shortDescription.innerHTML = itemSummaries.shortDescription? itemSummaries.shortDescription : "No description available";
 
     
     
@@ -81,7 +82,8 @@
     //create a text element
     let text = document.createElement("p");
     text.className = "card-text";
-    text.innerHTML = item.shortDescription;
+    text.innerHTML = itemSummaries.shortDescription? itemSummaries.shortDescription : "No description available";
+
     cardBody.appendChild(text);
 
     //create a price element
