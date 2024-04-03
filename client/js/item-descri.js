@@ -60,12 +60,12 @@
 
     //create a card for the item
     let card = document.createElement("div");
-    card.className = "card shadow";
+    card.className = "card shadow h-100";
     cardDiv.appendChild(card);
     
     //create an image element
     let img = document.createElement("img");
-    img.className = "card-img-top img-fluid";
+    img.className = "card-img-top img-fluid h-30";
     img.src = item.image.imageUrl;
     card.appendChild(img);
 
