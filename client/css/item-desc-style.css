@@ -16,7 +16,9 @@ h1, h4 {
 p {
   font-family: Lato;
 }
-
+nav {
+  background-color: var(--custom-myNavbar);
+}
 
 body {
  
