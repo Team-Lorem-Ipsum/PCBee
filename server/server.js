@@ -10,7 +10,20 @@ const req = require("express/lib/request");
 
   const app = express();
   const logs = [];
+  //category ids for ebay
+  const category_ids={
+    "gpu": 27386,
+    "cpu": 164,
+    "memory": 170083,
+    "motherboard": 1244,
+    "caseFan": 131486,
+    "case": 42014,
+    "monitor": 80053
+  };
 
+  //current category
+  let currentCat = "gpu";
+  // ebay access token
   let access_token;
   /**
    * Middleware declarations
@@ -77,7 +90,7 @@ const req = require("express/lib/request");
 
       let response = await axios.get(`${url}?${q}&${limit}`, {
         headers: {
-          Authorization: `Bearer ${YOUR_ACCESS_TOKEN}`, // TODO
+          Authorization: `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
       });
@@ -109,6 +122,23 @@ const req = require("express/lib/request");
       res.redirect("/");
 
     });    
+   // eBay popular item
+  // 
+  // 
+  /**
+   * eBay item description redirect end point
+   * redirect to  PATH/search/:category/:ItemId in builder.js
+   * 
+   * redirect new tab to item description page with category and item id
+   */
+   app.get("/item-desc/category=:category&itemName=:itemName", async (req, res) => {
+    console.log("Redirecting to item description page");
+      let category = req.params.category;
+      let itemName = req.params.itemName;
+      console.log(`category: ${category}, itemName: ${itemName}`);
+      let redirectURL = `/item-description.html?category=${category}&itemName=${itemName}`;
+      res.redirect(redirectURL);
+   });
 
     // AI
 
@@ -126,7 +156,6 @@ app.post("/response/gpt", async (req, res) => {
         "role": "user",
         "content": message
     });
-
     try {
         const response = await axios.post(apiUrl, {
             model: "gpt-3.5-turbo-0125",
@@ -155,6 +184,7 @@ app.post("/response/gpt", async (req, res) => {
         res.status(500).send('Error calling GPT API');
     }
 });
+
     // Start Node.js HTTP webserver
     app.listen(config.PORT, "0.0.0.0", () => {
       // 0.0.0.0 to host on render.com

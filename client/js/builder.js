@@ -68,7 +68,11 @@ const createListing = (category, name, price, listing) => {
     if (listing) // if bubble is for product listing, NOT cart
         addBtn.addEventListener("click", () => addToCart(category, name, price));
     else
-        addBtn.addEventListener("click", async (name, category) => await fetch(`/searchResult/${category}`)); // TODO
+        //console.log("clicked name: ", name, "category: ", category);
+        addBtn.addEventListener("click", () => {
+            console.log("clicked name: ", name, "category: ", category);
+            window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
+        }); // TODO
 
     let rmButton;
     if (!listing) { // if its not for listing
@@ -162,6 +166,15 @@ const addToCart = (category, name, price) => {
         searchBtn.style = "background-color: var(--custom-myNavbar);";
         searchBtn.classList.add("btn", "w-50", "mt-2", "m-auto");
         searchBtn.innerHTML = "Search All";
+        searchBtn.addEventListener("click", () => {
+            let items = selectedItems.childNodes;
+            items.forEach(item => {
+                let name = item.childNodes[1].childNodes[0].textContent;
+                let category = item.childNodes[0].childNodes[0].alt;
+                window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
+            });
+            
+        })
 
         // create total cost header
         let totalCost = document.createElement("h5");
