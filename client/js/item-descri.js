@@ -52,6 +52,7 @@
     title.innerHTML = titleHTML;
     price.innerHTML = "$ "+ itemSummary.price.value +" " + itemSummary.price.currency ;
     shortDescription.innerHTML = itemSummary.shortDescription? itemSummary.shortDescription : "No description available";
+
    };
    function createCard(item){
     //create a div element
@@ -84,6 +85,7 @@
     let text = document.createElement("p");
     text.className = "card-text";
     text.innerHTML = item.shortDescription? item.shortDescription : "No description available";
+
     cardBody.appendChild(text);
 
     //create a price element
