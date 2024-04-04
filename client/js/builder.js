@@ -18,7 +18,7 @@ const maxListing = 50;
  * @return data from JSON
  */
 const fetchJSON = async (name) => {
-    try{
+    try {
         let response = await fetch(`data/${name}.json`);
         let data = await response.json();
         return data;
@@ -30,7 +30,7 @@ const fetchJSON = async (name) => {
 /** ==================================
  *  PC BUILDER SECTION
  *  ==================================
- */ 
+ */
 
 /**
  * filter search algorithm for search bar
@@ -42,7 +42,7 @@ const filterSearch = () => {
     input = document.getElementById('searchBar');
     filter = input.value.toUpperCase();
     productListing = document.querySelector(".product-listing");
-    itemListings = document.querySelectorAll(".item-listing"); 
+    itemListings = document.querySelectorAll(".item-listing");
     searchResults = 0;
 
     // loop through all item listings
@@ -103,13 +103,13 @@ const createListing = (category, name, price, listing) => {
     itemName.textContent = name;
 
     let desc = document.createElement("p");
-    price = price? `$${price}`: "Not available";
+    price = price ? `$${price}` : "Not available";
     desc.innerHTML = `Price: ${price}`;
 
     // create the add button if its for listing
     // create the search and remove item for cart
     let addBtn = document.createElement("button");
-    addBtn.innerHTML = listing?"Add to List":"Search Item";
+    addBtn.innerHTML = listing ? "Add to List" : "Search Item";
     addBtn.classList.add("btn", "w-50");
     if (listing) // if bubble is for product listing, NOT cart
         addBtn.addEventListener("click", () => addToCart(category, name, price));
@@ -129,7 +129,7 @@ const createListing = (category, name, price, listing) => {
             wrapper.remove();
             updateTotalCost();
             itemsInCart--;
-            if (!itemsInCart) 
+            if (!itemsInCart)
                 clearAll();
             showNotification("Item has been removed");
         });
@@ -146,7 +146,7 @@ const createListing = (category, name, price, listing) => {
     wrapper.appendChild(divDesc);
 
     if (listing) // if bubble is for product listing, NOT cart
-        productListing.appendChild(wrapper);  
+        productListing.appendChild(wrapper);
     else
         selectedItems.appendChild(wrapper);
 }
@@ -162,7 +162,7 @@ const setCategory = () => {
         if (options[i].value == value)
             heading.innerHTML = options[i].innerHTML;
     }
-  
+
     searchBar.value = "";
     setListing(value);
 }
@@ -178,7 +178,7 @@ const setCategoryThruImg = (value) => {
         if (options[i].value == value)
             heading.innerHTML = options[i].innerHTML;
     }
-  
+
     searchBar.value = "";
     setListing(value);
 }
@@ -221,7 +221,7 @@ const addToCart = (category, name, price) => {
                 let category = item.childNodes[0].childNodes[0].alt;
                 window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
             });
-            
+
         })
 
         // create total cost header
@@ -260,7 +260,7 @@ const clearAll = () => {
     totalCost.remove();
     clearBtn.remove();
     selectedItems.innerHTML = "";
-    
+
     h5.innerHTML = "Start adding items to see them here!";
     selectedItems.appendChild(h5);
     itemsInCart = 0;
@@ -271,7 +271,7 @@ const clearAll = () => {
  */
 const updateTotalCost = () => {
     let totalCostHeader = document.getElementById("total-cost");
-    let items = selectedItems.childNodes; 
+    let items = selectedItems.childNodes;
     let totalCost = 0;
 
     // loops through all items in cart
@@ -302,7 +302,7 @@ const showNotification = (message) => {
 
     setTimeout(() => {
         notice.remove();
-    }, 2000); 
+    }, 2000);
 }
 
 select.addEventListener("change", setCategory);
@@ -314,7 +314,7 @@ select.addEventListener("change", setCategory);
 /** ==================================
  *  GPT CHATBOT SECTION
  *  ==================================
- */ 
+ */
 
 let button = document.getElementById('sendButton')
 let chatInput = document.getElementById('input')
@@ -359,7 +359,7 @@ async function sendChat(args) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                prompt: args.Message  
+                prompt: args.Message
             })
         });
 
@@ -367,15 +367,15 @@ async function sendChat(args) {
             throw new Error('failed to catch')
 
         const AI_response = await response.text();
-        console.log(AI_response);      
-        
+        console.log(AI_response);
+
         createBubble({
             Class: 'botChat',
             Message: AI_response
         })
 
     } catch (error) {
-        
+
     }
 }
 
@@ -418,11 +418,11 @@ window.addEventListener("load", async () => {
         console.error("Error fetching JSON data:", error);
     }
 
-searchBar.addEventListener("keyup", filterSearch);
-searchBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    filterSearch();
-});
+    searchBar.addEventListener("keyup", filterSearch);
+    searchBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        filterSearch();
+    });
 });
 
-module.exports = { testEnvironment: 'jsdom',clearAll, sendChat, addToCart, setListing, createListing};
+// module.exports = { testEnvironment: 'jsdom', clearAll, sendChat, addToCart, setListing, createListing };
