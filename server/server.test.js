@@ -36,8 +36,6 @@ test('Check to see if the chatbot responds properly to relevant questions', asyn
         const completion = response.data.choices[0].message.content;
         const Test = completion.match(/[True|TRUE]+/g)
         
-        console.log(Test[0])
-
         expect(Test[0]).toBe("True");
     } catch (error) {
         // if (error)
@@ -46,3 +44,35 @@ test('Check to see if the chatbot responds properly to relevant questions', asyn
         expect(error).toBeNull();
     }
 });
+
+test('Check to see if chatbot responds with correct budge', async () => {    
+    try {
+        const response = await serverFunctions.GPT_API_CALL("Can you help me build a PC with a budget of 800 dollars? Respond with only the price of the entire build");
+        const completion = response.data.choices[0].message.content;
+            
+        expect(completion).toBe("$800");
+    } catch (error) {
+        // if (error)
+            // console.error('Error calling GPT API:', error);
+    
+        expect(error).toBeNull();
+    }
+});
+
+test('Check to see if chatbot responds with correct budge', async () => {    
+    try {
+        const response = await serverFunctions.GPT_API_CALL("Can you help me build a PC with a budget of 800 dollars? Respond with only the price of the entire build");
+        const completion = response.data.choices[0].message.content;
+            
+        expect(completion).not.toBe("$100");
+    } catch (error) {
+        // if (error)
+            // console.error('Error calling GPT API:', error);
+    
+        expect(error).toBeNull();
+    }
+});
+
+// test('', async() => {
+
+// })
