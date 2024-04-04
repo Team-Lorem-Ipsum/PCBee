@@ -27,6 +27,7 @@
                         <a class="nav-link px-3 py-2" href="index.html">Home</a>
                         <a class="nav-link px-3 py-2" href="builder.html">PC Builder</a>
                         <a class="nav-link px-3 py-2" href="about.html">About Us</a>
+                        <a class="nav-link px-3 py-2" href="/login/ebay" target=”_blank” id="OAuth">Sign in</a>
                     </div>
                 </div>
             </nav>
@@ -46,8 +47,8 @@
 
                             <div class="container d-flex flex-column w-50">
                                 <form class="form-inline my-2 my-lg-0 d-flex">
-                                    <input class="form-control mr-sm-2 me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-dark my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                                    <input class="form-control mr-sm-2 me-2" type="search" placeholder="Search" aria-label="Search" id="searchBar">
+                                    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn"><i class="bi bi-search"></i></button>
                                 </form>
                                 
                                 <label for="category">Choose category:</label>
@@ -85,7 +86,7 @@
                             <input type="image" src="assets/cpu.png" alt="cpu" onclick="setCategoryThruImg('cpu')" style="max-width: 100%;">
                             <input type="image" src="assets/memory.png" alt="memory" onclick="setCategoryThruImg('memory')" style="max-width: 100%;">
                             <input type="image" src="assets/gpu.png" alt="gpu" onclick="setCategoryThruImg('gpu')" style="max-width: 100%;">
-                            <input type="image" src="assets/monitor.png" alt="monitir" onclick="setCategoryThruImg('monitor')" style="max-width: 100%;">
+                            <input type="image" src="assets/monitor.png" alt="monitor" onclick="setCategoryThruImg('monitor')" style="max-width: 100%;">
                             <input type="image" src="assets/motherboard.png" alt="motherboard" onclick="setCategoryThruImg('motherboard')" style="max-width: 100%;">
                             <input type="image" src="assets/case.png" alt="case" onclick="setCategoryThruImg('case')" style="max-width: 100%;">
                         </div>
@@ -126,7 +127,7 @@
             
             
             
-            <div> <a href="/login/ebay" target=”_blank” id="OAuth"> AUTHPAGE</a></div>
+            
         </main>
      
         <div class=" foot container-fluid d-flex justify-content-between text-white">

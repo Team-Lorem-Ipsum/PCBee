@@ -16,6 +16,7 @@ nav {
 
 .item-listing {
   background-color: var(--custom-myOrange);
+  display: block;
 }
 
 .banner {
@@ -39,6 +40,11 @@ h1, h4, h5 {
 }
 
 .navbar .collapse :hover {
+  background-color: #9b711c;
+  color: white;
+}
+
+.sign-in :hover {
   background-color: #9b711c;
   color: white;
 }
@@ -232,4 +238,9 @@ input[type="image"]:hover {
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: black;
 }

@@ -16,7 +16,9 @@ h1, h4 {
 p {
   font-family: Lato;
 }
-
+nav {
+  background-color: var(--custom-myNavbar);
+}
 
 body {
  
@@ -25,5 +27,5 @@ body {
   background-image: url("../assets/banner_logo.png");
   background-position: bottom;
   background-size: cover;
-  background-color: var(--custom-myOrange);
+  background-color: var(--custom-myYellow);
 }

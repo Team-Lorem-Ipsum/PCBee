@@ -5,6 +5,9 @@ let select = document.querySelector("#category-select");
 let jsonData = new Map();
 let selectedItems = document.querySelector(".selected-items")
 let productListing = document.querySelector(".product-listing");
+let searchBtn = document.querySelector("#searchBtn");
+let searchBar = document.querySelector("#searchBar");
+let isListingEmptyShown = false;
 let itemsInCart = 0;
 let categories = ["case", "gpu", "cpu", "caseFan", "memory", "monitor", "motherboard"]
 const maxListing = 50;
@@ -28,6 +31,49 @@ const fetchJSON = async (name) => {
  *  PC BUILDER SECTION
  *  ==================================
  */ 
+
+/**
+ * filter search algorithm for search bar
+ * provided by w3schools !
+ */
+const filterSearch = () => {
+    // declarations
+    let input, filter, productListing, itemListings, h5, txtValue, searchResults;
+    input = document.getElementById('searchBar');
+    filter = input.value.toUpperCase();
+    productListing = document.querySelector(".product-listing");
+    itemListings = document.querySelectorAll(".item-listing"); 
+    searchResults = 0;
+
+    // loop through all item listings
+    itemListings.forEach(item => {
+        h5 = item.querySelector("h5");
+        txtValue = h5.textContent || h5.innerText;
+        if (filter === "" || txtValue.toUpperCase().indexOf(filter) > -1) {
+            item.classList.add("rounded-start", "d-flex", "p-3");
+            item.style.display = "block";
+            searchResults++;
+        } else {
+            item.classList.remove("rounded-start", "d-flex", "p-3");
+            item.style.display = "none";
+        }
+    });
+
+
+    // if no search results
+    if (!isListingEmptyShown && !searchResults) {
+        let h5 = document.createElement("h5");
+        h5.innerHTML = "No results found!";
+        h5.style = "text-align: center;";
+        productListing.appendChild(h5);
+        isListingEmptyShown = true;
+    } else if (searchResults) {
+        let h5 = document.querySelector(".product-listing > h5");
+        if (h5)
+            h5.remove();
+        isListingEmptyShown = false;
+    }
+};
 
 /**
  * create product listing bubble
@@ -68,7 +114,11 @@ const createListing = (category, name, price, listing) => {
     if (listing) // if bubble is for product listing, NOT cart
         addBtn.addEventListener("click", () => addToCart(category, name, price));
     else
-        addBtn.addEventListener("click", async (name, category) => await fetch(`/searchResult/${category}`)); // TODO
+        //console.log("clicked name: ", name, "category: ", category);
+        addBtn.addEventListener("click", () => {
+            console.log("clicked name: ", name, "category: ", category);
+            window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
+        }); // TODO
 
     let rmButton;
     if (!listing) { // if its not for listing
@@ -113,6 +163,7 @@ const setCategory = () => {
             heading.innerHTML = options[i].innerHTML;
     }
   
+    searchBar.value = "";
     setListing(value);
 }
 
@@ -128,6 +179,7 @@ const setCategoryThruImg = (value) => {
             heading.innerHTML = options[i].innerHTML;
     }
   
+    searchBar.value = "";
     setListing(value);
 }
 
@@ -162,6 +214,15 @@ const addToCart = (category, name, price) => {
         searchBtn.style = "background-color: var(--custom-myNavbar);";
         searchBtn.classList.add("btn", "w-50", "mt-2", "m-auto");
         searchBtn.innerHTML = "Search All";
+        searchBtn.addEventListener("click", () => {
+            let items = selectedItems.childNodes;
+            items.forEach(item => {
+                let name = item.childNodes[1].childNodes[0].textContent;
+                let category = item.childNodes[0].childNodes[0].alt;
+                window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
+            });
+            
+        })
 
         // create total cost header
         let totalCost = document.createElement("h5");
@@ -356,6 +417,12 @@ window.addEventListener("load", async () => {
     } catch (error) {
         console.error("Error fetching JSON data:", error);
     }
+
+searchBar.addEventListener("keyup", filterSearch);
+searchBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    filterSearch();
+});
 });
 
 module.exports = { testEnvironment: 'jsdom',clearAll, sendChat, addToCart, setListing, createListing};
