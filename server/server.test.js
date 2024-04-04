@@ -27,6 +27,16 @@ test('Check to see if chatbot responds as a pc helper', async ()=>{
         }
 });
 
+test('Check to see if chatbot creates proper build that follows users requirements', async ()=>{
+    const response = await serverFunctions.GPT_API_CALL("Can you help me build a PC with a budget of 800 dollars? Respond with ONLY the price of the entire build, nothing else");
+    const completion = response.data.choices[0].message.content;        
+    if(expect(completion).toBe("$800")){
+        response = await serverFunctions.GPT_API_CALL("Can you help me build a PC with a budget of 800 dollars? Respond with ONLY the price of the entire build, nothing else");
+        completion = response.data.choices[0].message.content;
+        expect(completion).not.toBe("$100");
+    }
+});
+
 //Unit testing
 test('Check if the api call function exists', () => {
     expect(serverFunctions.GPT_API_CALL).toBeDefined();
