@@ -424,3 +424,5 @@ searchBtn.addEventListener("click", (event) => {
     filterSearch();
 });
 });
+
+module.exports = { testEnvironment: 'jsdom',clearAll, sendChat, addToCart, setListing, createListing};
