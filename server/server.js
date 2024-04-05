@@ -123,7 +123,6 @@ const req = require("express/lib/request");
       res.redirect("/");
 
     });    
-   // eBay popular item
   // 
   // 
   /**
