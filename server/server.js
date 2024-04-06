@@ -156,6 +156,7 @@ app.post("/response/gpt", async (req, res) => {
     });
     try {
         const response = await globalServerFunctions.GPT_API_CALL();
+        console.log(response);
         const completion = response.data.choices[0].message.content;
 
         // Add AI response to chat history
