@@ -445,7 +445,8 @@ window.addEventListener("load", async () => {
     // outputs eBay token
     let access_token = await fetch("/getAccessToken");
     console.log("Access Token:", access_token);
-    console.log("Access Token:", await access_token.json());
+    let jsonifnin = await access_token.json();
+    console.log("Access Token:", jsonifnin.access_token_);
 });
 
 // module.exports = { testEnvironment: 'jsdom', clearAll, sendChat, addToCart, setListing, createListing };
