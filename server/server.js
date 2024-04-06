@@ -111,6 +111,10 @@ const req = require("express/lib/request");
       response.redirect(userConsentUrl);
     });
 
+    app.get("/getAccessToken", (req, res) => {
+      res.send(access_token);
+    });
+
     app.get("/auth/ebay/callback", async (req, res) => {
       let code = req.query.code;
       let response = await ebayAuthToken.exchangeCodeForAccessToken("PRODUCTION", code)

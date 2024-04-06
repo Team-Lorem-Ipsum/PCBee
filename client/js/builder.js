@@ -441,6 +441,13 @@ window.addEventListener("load", async () => {
         event.preventDefault();
         filterSearch();
     });
+
+    // outputs eBay token
+    fetch("/getAccessToken")
+        .then(async (response) => {
+            let responseJson = await response.json();
+            console.log("eBay Token: ", responseJson? responseJson : "No token found. Please sign in first.");
+        });
 });
 
 // module.exports = { testEnvironment: 'jsdom', clearAll, sendChat, addToCart, setListing, createListing };
