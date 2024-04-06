@@ -446,6 +446,8 @@ window.addEventListener("load", async () => {
     fetch("/getAccessToken")
         .then(async (response) => {
             console.log(response);
+            console.log(response.access_token)
+            console.log(response.json())
             let responseJson = await response.json();
             console.log("eBay Token: ", responseJson);
             console.log("eBay Token: ", responseJson.access_token);

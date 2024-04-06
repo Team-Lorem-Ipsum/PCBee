@@ -26,7 +26,7 @@ const req = require("express/lib/request");
   //current category
   let currentCat = "gpu";
   // ebay access token
-  let access_token;
+  let access_token = "";
   /**
    * Middleware declarations
    */
