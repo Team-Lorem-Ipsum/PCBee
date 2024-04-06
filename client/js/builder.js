@@ -445,8 +445,10 @@ window.addEventListener("load", async () => {
     // outputs eBay token
     fetch("/getAccessToken")
         .then(async (response) => {
+            console.log(response);
             let responseJson = await response.json();
-            console.log("eBay Token: ", responseJson? responseJson : "No token found. Please sign in first.");
+            console.log("eBay Token: ", responseJson);
+            console.log("eBay Token: ", responseJson.access_token);
         });
 });
 
