@@ -443,15 +443,9 @@ window.addEventListener("load", async () => {
     });
 
     // outputs eBay token
-    fetch("/getAccessToken")
-        .then(async (response) => {
-            console.log(response);
-            console.log(response.access_token)
-            console.log(response.json())
-            let responseJson = await response.json();
-            console.log("eBay Token: ", responseJson);
-            console.log("eBay Token: ", responseJson.access_token);
-        });
+    let access_token = await fetch("/getAccessToken");
+    console.log("Access Token:", access_token);
+    console.log("Access Token:", await access_token.json());
 });
 
 // module.exports = { testEnvironment: 'jsdom', clearAll, sendChat, addToCart, setListing, createListing };

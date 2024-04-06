@@ -112,8 +112,7 @@ const req = require("express/lib/request");
     });
 
     app.get("/getAccessToken", (req, res) => {
-      let jsonData = json.stringify({ access_token: access_token });
-      res.send(jsonData);
+      res.send(access_token);
     });
 
     app.get("/auth/ebay/callback", async (req, res) => {
