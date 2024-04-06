@@ -118,7 +118,8 @@ const createListing = (category, name, price, listing) => {
             fetch("/isSignedIn")
             .then(async (response) => {
                 let responseJson = await response.json();
-
+                console.log(responseJson);
+                console.log("isSignedIn: ", responseJson.isSignedIn);
                 // checks if user is signed in
                 if (responseJson.isSignedIn) {
                     console.log("clicked name: ", name, "category: ", category);
