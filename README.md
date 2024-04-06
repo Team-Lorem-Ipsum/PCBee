@@ -1,5 +1,6 @@
 # PCBee
 PCBee is a high-tech, AI-powered, easy-to-use PC part picker! A CPSC2350 Final Project 
+The site uses eBay's API and GPT API to help make a simple PC part picker.
 
 # Project Objectives
 To create an easy-to-use website powered by the latest AI technology to help build you a new PC. 
@@ -8,7 +9,7 @@ To help us learn proper SDLC methodologies, and apply it to a practical project.
 # Tech Stacks
 1. HTML
 2. Bootstrap (CSS)
-3. React (JS)
+3. Node js
 
 # Contributors
 1. Thomas Cheng
