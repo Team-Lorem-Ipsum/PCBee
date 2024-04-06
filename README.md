@@ -17,4 +17,6 @@ To help us learn proper SDLC methodologies, and apply it to a practical project.
 4. Kevin Nguyen
 
 # Setup Instructions
-TODO
+1. In a terminal, run `curl https://api.render.com/deploy/srv-cnqebo6d3nmc7393cqv0?key=L9jaKXy2aec`. This will call the webhook on Render to start deploying the site.
+2. Wait for around 30 seconds to allow Render to build and deploy the site. 
+3. Visit `https://pcbee.onrender.com/` to access the site.
