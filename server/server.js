@@ -148,8 +148,7 @@ const req = require("express/lib/request");
 
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
-    const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = process.env.OPENAI_API_KEY;
+    
     // Add user message to chat history
     globalServerFunctions.GPT_CHAT_HISTORY.push({
         "role": "user",

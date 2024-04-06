@@ -13,7 +13,7 @@ const globalServerFunctions = {
 
     GPT_API_CALL: async function (testMessage) {
         const apiUrl = "https://api.openai.com/v1/chat/completions";
-        const apiKey = "";
+        const apiKey = process.env.OPENAI_API_KEY;
 
         try {
             const response = await axios.post(apiUrl, {
