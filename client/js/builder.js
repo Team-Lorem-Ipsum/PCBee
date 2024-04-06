@@ -114,16 +114,25 @@ const createListing = (category, name, price, listing) => {
     if (listing) // if bubble is for product listing, NOT cart
         addBtn.addEventListener("click", () => addToCart(category, name, price));
     else
-        //console.log("clicked name: ", name, "category: ", category);
         addBtn.addEventListener("click", () => {
-            console.log("clicked name: ", name, "category: ", category);
-            window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
-        }); // TODO
+            fetch("/isSignedIn")
+            .then(async (response) => {
+                let responseJson = await response.json();
+
+                // checks if user is signed in
+                if (responseJson.isSignedIn) {
+                    console.log("clicked name: ", name, "category: ", category);
+                    window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
+                } else {
+                    showNotification("Please sign in first to search items.", false);
+                }
+            })
+        });
 
     let rmButton;
     if (!listing) { // if its not for listing
         rmButton = document.createElement("button");
-        rmButton.innerHTML = "Remove";
+        rmButton.innerHTML = "Remove Item";
         rmButton.classList.add("btn", "w-50", "mt-1");
         rmButton.addEventListener("click", () => {
             wrapper.remove();
@@ -131,7 +140,7 @@ const createListing = (category, name, price, listing) => {
             itemsInCart--;
             if (!itemsInCart) 
                 clearAll();
-            showNotification("Item has been removed");
+            showNotification("Item has been removed", true);
         });
     }
 
@@ -244,7 +253,7 @@ const addToCart = (category, name, price) => {
     itemsInCart += 1;
     createListing(category, name, price, false);
     updateTotalCost();
-    showNotification("Item has been added");
+    showNotification("Item has been added", true);
 };
 
 /**
@@ -290,14 +299,23 @@ const updateTotalCost = () => {
  * shows notification on screen
  * @param {*} message the message to be displayed
  */
-const showNotification = (message) => {
-    let notice = document.createElement("div");
-    let icon = document.createElement("i");
+const showNotification = (message, isSuccess) => {
+    // removes old notification
+    let oldNotice = document.querySelector(".notification");
+    if(oldNotice)
+        oldNotice.remove();
 
-    icon.classList.add("bi", "bi-check", "h5");
+    let notice = document.createElement("div");
     notice.textContent = message;
     notice.classList.add("notification");
-    notice.appendChild(icon);
+
+    if (isSuccess) {
+        let icon = document.createElement("i");
+        icon.classList.add("bi", "bi-check", "h5");
+        notice.appendChild(icon);
+        notice.style.backgroundColor = "#198754";
+    } else
+        notice.style.backgroundColor = "#ffc107";
     document.body.appendChild(notice);
 
     setTimeout(() => {

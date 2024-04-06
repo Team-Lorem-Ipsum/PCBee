@@ -20,6 +20,7 @@ const req = require("express/lib/request");
     "case": 42014,
     "monitor": 80053
   };
+  let isSignedIn = false;
 
   //current category
   let currentCat = "gpu";
@@ -80,6 +81,9 @@ const req = require("express/lib/request");
 
   console.log("Authorization Code Auth Flow END");
 
+  app.get("/isSignedIn", (req, res) => { 
+    res.send(isSignedIn);
+  });
 
   // eBay search item
   app.get("/search/:keyword", async (req, res) => {
@@ -119,12 +123,11 @@ const req = require("express/lib/request");
           console.log(`Error to get Access token :${JSON.stringify(error)}`);
         });
       console.log("Access Token:", access_token);
+      isSignedIn = true;
       res.redirect("/");
 
     });    
-   // eBay popular item
-  // 
-  // 
+
   /**
    * eBay item description redirect end point
    * redirect to  PATH/search/:category/:ItemId in builder.js
@@ -150,7 +153,7 @@ const chatHistory = [{
 app.post("/response/gpt", async (req, res) => {
     const message = req.body.prompt;
     const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const apiKey = "";
+    const apiKey = process.env.OPENAI_API_KEY;
     // Add user message to chat history
     chatHistory.push({
         "role": "user",
