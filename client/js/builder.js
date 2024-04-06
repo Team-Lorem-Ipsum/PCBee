@@ -118,10 +118,9 @@ const createListing = (category, name, price, listing) => {
             fetch("/isSignedIn")
             .then(async (response) => {
                 let responseJson = await response.json();
-                console.log(responseJson);
-                console.log("isSignedIn: ", responseJson.isSignedIn);
+               
                 // checks if user is signed in
-                if (responseJson.isSignedIn) {
+                if (responseJson) {
                     console.log("clicked name: ", name, "category: ", category);
                     window.open(`https://pcbee.onrender.com/item-desc/category=${category}&itemName=${name}`, '_blank');
                 } else {
