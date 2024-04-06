@@ -300,6 +300,11 @@ const updateTotalCost = () => {
  * @param {*} message the message to be displayed
  */
 const showNotification = (message, isSuccess) => {
+    // removes old notification
+    let oldNotice = document.querySelector(".notification");
+    if(oldNotice)
+        oldNotice.remove();
+
     let notice = document.createElement("div");
     notice.textContent = message;
     notice.classList.add("notification");
