@@ -31,5 +31,5 @@ To host locally, it is important to note that the project will be limited in fea
 
 # Project Links
 [Link to video demo, by Matthew Widjaja](https://www.youtube.com/watch?v=c3KX-QdsoXE&feature=youtu.be)
-[Link to project report](./projectReport)
-[Link to project presentation](./projectPresentation)
+[Link to project report](./projectReport.pdf)
+[Link to project presentation](./projectPresentation.pdf)
